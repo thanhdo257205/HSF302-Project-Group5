@@ -22,11 +22,11 @@ public class Industry {
     private String industryName;
 
     // Relationships
-    @OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<CompanyIndustry> companyIndustries = new HashSet<>();
 
-    @OneToMany(mappedBy = "industry", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<JobPost> jobPosts = new HashSet<>();
 }

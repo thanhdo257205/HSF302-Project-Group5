@@ -25,19 +25,19 @@ public class Province {
     @Column(name = "province_name", nullable = false, unique = true, length = 100)
     private String provinceName;
 
-    @OneToMany(mappedBy = "province")
+    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<AdministrativeUnit> administrativeUnits = new HashSet<>();
 
-    @OneToMany(mappedBy = "province")
+    @OneToMany(mappedBy = "province",  fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Company> companies = new HashSet<>();
 
-    @OneToMany(mappedBy = "province")
+    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<CandidateProfile> candidateProfiles = new HashSet<>();
 
-    @OneToMany(mappedBy = "province")
+    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<JobPost> jobPosts = new HashSet<>();
 }

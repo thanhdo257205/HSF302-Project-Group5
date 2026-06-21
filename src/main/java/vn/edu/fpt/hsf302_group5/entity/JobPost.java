@@ -28,9 +28,6 @@ public class JobPost {
     @JoinColumn(name = "recruiter_id", insertable = false, updatable = false)
     private Recruiter recruiter;
 
-    @Column(name = "industry_id", nullable = false)
-    private Integer industryId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "industry_id", insertable = false, updatable = false)
     private Industry industry;
@@ -103,11 +100,11 @@ public class JobPost {
     private String adminComment;
 
     // Relationships
-    @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<SavedJob> savedJobs = new HashSet<>();
 
-    @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Application> applications = new HashSet<>();
 }

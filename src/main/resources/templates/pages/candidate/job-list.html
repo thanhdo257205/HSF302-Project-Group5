@@ -22,128 +22,73 @@
         <h3 class="fw-bold mb-4">Danh sách việc làm</h3>
 
         <div class="row">
-            <!-- Bộ lọc (Filter) bên trái -->
             <div class="col-lg-3 mb-4">
                 <div class="card card-custom filter-card p-3">
                     <h5 class="fw-bold mb-3">Bộ lọc tìm kiếm</h5>
-                    <form>
+                    <form th:action="@{/candidate/jobs/list-job}" method="get">
                         <div class="mb-3">
                             <label class="form-label text-muted small fw-bold">Từ khóa</label>
-                            <input type="text" class="form-control" placeholder="Tên công việc...">
+                            <input type="text" name="search-keyword" th:value="${searchKeyword}" class="form-control"
+                                   placeholder="Tên công việc...">
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-muted small fw-bold">Ngành nghề</label>
-                            <select class="form-select">
-                                <option>Tất cả</option>
-                                <option>CNTT - Phần mềm</option>
-                                <option>Marketing</option>
-                                <option>Kế toán</option>
+                            <select class="form-select" name="industry">
+                                <option value="-1" th:selected="${industryId == null}">Tất cả</option>
+                                <option th:each="industryResponse : ${industryResponses}"
+                                        th:text="${industryResponse.getIndustryName()}"
+                                        th:value="${industryResponse.getIndustryId()}"
+                                        th:selected="${industryResponse.getIndustryId() == industryId}"></option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-muted small fw-bold">Địa điểm</label>
-                            <select class="form-select">
-                                <option>Tất cả</option>
-                                <option>Hồ Chí Minh</option>
-                                <option>Hà Nội</option>
-                                <option>Đà Nẵng</option>
+                            <select class="form-select" name="province">
+                                <option value="-1" th:selected="${provinceId == null}">Tất cả</option>
+                                <option th:each="provinceResponse : ${provinceResponses}"
+                                        th:text="${provinceResponse.getProvinceName()}"
+                                        th:value="${provinceResponse.getProvinceId()}"
+                                        th:selected="${provinceResponse.getProvinceId() == provinceId}"></option>
                             </select>
                         </div>
+
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold">Mức lương</label>
-                            <select class="form-select">
-                                <option>Tất cả</option>
-                                <option>Dưới 10 triệu</option>
-                                <option>10 - 20 triệu</option>
-                                <option>Trên 20 triệu</option>
-                                <option>Thỏa thuận</option>
-                            </select>
+                            <label class="form-label text-muted small fw-bold">Mức lương tối thiểu (VNĐ)</label>
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    <input type="number" name="minSalary" th:value="${minSalary}" class="form-control"
+                                           placeholder="Tối thiểu" min="0">
+                                </div>
+                            </div>
                         </div>
+
                         <button type="submit" class="btn btn-primary-custom w-100">Lọc kết quả</button>
                     </form>
                 </div>
             </div>
 
-            <!-- Danh sách Job dạng Grid (dạng ô) bên phải -->
             <div class="col-lg-9">
                 <div class="row g-3">
-                    <!-- Ô Job 1 -->
-                    <div class="col-md-6">
+                    <div class="col-md-6" th:each="jobPostResponse : ${jobPostResponses}">
                         <div class="card card-custom p-3 h-100 d-flex flex-column">
                             <div class="d-flex align-items-center gap-3 mb-3">
-                                <img src="https://ui-avatars.com/api/?name=Tech+Corp&background=random&color=fff&size=60" alt="Company" class="rounded border p-1" style="width: 60px; height: 60px; object-fit: cover;">
+                                <img src="https://ui-avatars.com/api/?name=Tech+Corp&background=random&color=fff&size=60"
+                                     alt="Company" class="rounded border p-1"
+                                     style="width: 60px; height: 60px; object-fit: cover;">
                                 <div>
-                                    <h6 class="fw-bold mb-1 text-primary text-truncate" style="max-width: 200px;" title="Senior Frontend Developer (ReactJS)">Senior Frontend Developer</h6>
-                                    <p class="text-muted small mb-0">TechCorp Vietnam JSC</p>
+                                    <h6 class="fw-bold mb-1 text-primary text-truncate" style="max-width: 200px;"
+                                        th:text="${jobPostResponse.jobTitle}">Senior Frontend Developer</h6>
+                                    <p class="text-muted small mb-0" th:text="${jobPostResponse.companyName}"></p>
                                 </div>
                             </div>
                             <div class="d-flex flex-column gap-2 text-muted small mb-3 flex-grow-1">
-                                <span><i class="bi bi-cash text-success me-2"></i> 1000 - 2000 USD</span>
-                                <span><i class="bi bi-geo-alt me-2"></i> Hồ Chí Minh</span>
-                                <span><i class="bi bi-clock text-danger me-2"></i> Hạn nộp: 30/11/2026</span>
-                            </div>
-                            <div class="mt-auto">
-                                <a href="job-detail.html" class="btn btn-outline-primary-custom w-100">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ô Job 2 -->
-                    <div class="col-md-6">
-                        <div class="card card-custom p-3 h-100 d-flex flex-column">
-                            <div class="d-flex align-items-center gap-3 mb-3">
-                                <img src="https://ui-avatars.com/api/?name=Global+Media&background=random&color=fff&size=60" alt="Company" class="rounded border p-1" style="width: 60px; height: 60px; object-fit: cover;">
-                                <div>
-                                    <h6 class="fw-bold mb-1 text-primary text-truncate" style="max-width: 200px;" title="Chuyên viên Marketing Digital">Marketing Digital</h6>
-                                    <p class="text-muted small mb-0">Global Media Group</p>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column gap-2 text-muted small mb-3 flex-grow-1">
-                                <span><i class="bi bi-cash text-success me-2"></i> Thỏa thuận</span>
-                                <span><i class="bi bi-geo-alt me-2"></i> Hà Nội</span>
-                                <span><i class="bi bi-clock text-danger me-2"></i> Hạn nộp: 15/12/2026</span>
-                            </div>
-                            <div class="mt-auto">
-                                <a href="job-detail.html" class="btn btn-outline-primary-custom w-100">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ô Job 3 -->
-                    <div class="col-md-6">
-                        <div class="card card-custom p-3 h-100 d-flex flex-column">
-                            <div class="d-flex align-items-center gap-3 mb-3">
-                                <img src="https://ui-avatars.com/api/?name=FPT+Software&background=random&color=fff&size=60" alt="Company" class="rounded border p-1" style="width: 60px; height: 60px; object-fit: cover;">
-                                <div>
-                                    <h6 class="fw-bold mb-1 text-primary text-truncate" style="max-width: 200px;">Java Backend Engineer</h6>
-                                    <p class="text-muted small mb-0">FPT Software</p>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column gap-2 text-muted small mb-3 flex-grow-1">
-                                <span><i class="bi bi-cash text-success me-2"></i> Lên đến 3000 USD</span>
-                                <span><i class="bi bi-geo-alt me-2"></i> Đà Nẵng</span>
-                                <span><i class="bi bi-clock text-danger me-2"></i> Hạn nộp: 20/11/2026</span>
-                            </div>
-                            <div class="mt-auto">
-                                <a href="job-detail.html" class="btn btn-outline-primary-custom w-100">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ô Job 4 -->
-                    <div class="col-md-6">
-                        <div class="card card-custom p-3 h-100 d-flex flex-column">
-                            <div class="d-flex align-items-center gap-3 mb-3">
-                                <img src="https://ui-avatars.com/api/?name=VNG+Corp&background=random&color=fff&size=60" alt="Company" class="rounded border p-1" style="width: 60px; height: 60px; object-fit: cover;">
-                                <div>
-                                    <h6 class="fw-bold mb-1 text-primary text-truncate" style="max-width: 200px;">Game Designer</h6>
-                                    <p class="text-muted small mb-0">VNG Corporation</p>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column gap-2 text-muted small mb-3 flex-grow-1">
-                                <span><i class="bi bi-cash text-success me-2"></i> Thỏa thuận</span>
-                                <span><i class="bi bi-geo-alt me-2"></i> Hồ Chí Minh</span>
-                                <span><i class="bi bi-clock text-danger me-2"></i> Hạn nộp: 05/12/2026</span>
+                                <span th:text="${#numbers.formatDecimal(jobPostResponse.getSalaryMin(), 0, 'COMMA', 0, 'POINT') + ' - ' + #numbers.formatDecimal(
+                                jobPostResponse.getSalaryMax(), 0, 'COMMA', 0, 'POINT') + ' VND'}"><i
+                                        class="bi bi-cash text-success me-2"></i></span>
+                                <span th:text="${jobPostResponse.getCompanyProvinceAddress()}"><i
+                                        class="bi bi-geo-alt me-2"></i></span>
+                                <span th:text="${'Hạn nộp: ' + #temporals.format(jobPostResponse.getExpirationDate(), 'dd/MM/yyyy')}"><i
+                                        class="bi bi-clock text-danger me-2"></i></span>
                             </div>
                             <div class="mt-auto">
                                 <a href="job-detail.html" class="btn btn-outline-primary-custom w-100">Xem chi tiết</a>
@@ -152,13 +97,54 @@
                     </div>
                 </div>
 
-                <!-- Phân trang -->
                 <nav aria-label="Page navigation" class="mt-5">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item disabled"><a class="page-link" href="#">Trước</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Sau</a></li>
+
+                        <!-- Previous -->
+                        <li class="page-item"
+                            th:classappend="${jobPage.first} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/candidate/jobs/list-job(page=${jobPage.number - 1},
+                        industry=${selectedIndustryId},
+                        province=${selectedProvinceId},
+                        search-keyword=${searchKeyword},
+                        minSalary=${minSalary},
+                        maxSalary=${maxSalary})}">
+                                Trước
+                            </a>
+                        </li>
+
+                        <!-- Danh sách số trang -->
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence(startPage,endPage)}"
+                            th:classappend="${i == jobPage.number} ? 'active'">
+
+                            <a class="page-link"
+                               th:text="${i + 1}"
+                               th:href="@{/candidate/jobs/list-job(page=${i},
+                        industry=${selectedIndustryId},
+                        province=${selectedProvinceId},
+                        search-keyword=${searchKeyword},
+                        minSalary=${minSalary},
+                        maxSalary=${maxSalary})}">
+                            </a>
+
+                        </li>
+
+                        <!-- Next -->
+                        <li class="page-item"
+                            th:classappend="${jobPage.last} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/candidate/jobs/list-job(page=${jobPage.number + 1},
+                        industry=${selectedIndustryId},
+                        province=${selectedProvinceId},
+                        search-keyword=${searchKeyword},
+                        minSalary=${minSalary},
+                        maxSalary=${maxSalary})}">
+                                Sau
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>

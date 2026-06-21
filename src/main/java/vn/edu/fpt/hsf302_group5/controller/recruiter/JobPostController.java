@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import vn.edu.fpt.hsf302_group5.service.JobPostService;
+import vn.edu.fpt.hsf302_group5.service.jobpost.JobPostService;
 
 /**
  * HoaNK - HE195013
