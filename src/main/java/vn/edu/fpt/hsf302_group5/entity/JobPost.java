@@ -2,6 +2,8 @@ package vn.edu.fpt.hsf302_group5.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import vn.edu.fpt.hsf302_group5.entity.enums.EmploymentType;
+import vn.edu.fpt.hsf302_group5.entity.enums.JobLevel;
 import vn.edu.fpt.hsf302_group5.entity.enums.JobStatus;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -28,6 +30,9 @@ public class JobPost {
     @JoinColumn(name = "recruiter_id", insertable = false, updatable = false)
     private Recruiter recruiter;
 
+    @Column(name = "industry_id", nullable = false)
+    private Integer industryId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "industry_id", insertable = false, updatable = false)
     private Industry industry;
@@ -40,7 +45,8 @@ public class JobPost {
     private User approver;
 
     @Column(name = "job_level", length = 30)
-    private String jobLevel;
+    @Enumerated(EnumType.STRING)
+    private JobLevel jobLevel;
 
     @Column(name = "vacancies")
     @Builder.Default
@@ -79,7 +85,8 @@ public class JobPost {
     private BigDecimal salaryMax;
 
     @Column(name = "employment_type", length = 30)
-    private String employmentType;
+    @Enumerated(EnumType.STRING)
+    private EmploymentType employmentType;
 
     @Column(name = "status", nullable = false, length = 30)
     @Enumerated(EnumType.STRING)

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo tin tuyển dụng - JobPortal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/recruiter.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="recruiter-layout">
+    <div th:replace="~{fragments/recruiter-sidebar :: recruiter-sidebar}"></div>
+
+    <main class="recruiter-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold mb-0">Tạo tin tuyển dụng</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <form th:action="@{/recruiter/create-job}" method="POST" th:object="${jobPostForm}">
+                <!-- Thông tin công việc -->
+                <div class="card card-custom p-4 mb-4">
+                    <p th:if="${addSuccess}" th:text="${addSuccess}" class="text-success"></p>
+                    <h5 class="fw-bold border-bottom pb-2 mb-4">Thông tin công việc</h5>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Tiêu đề công việc <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="VD: Senior Java Developer" th:field="*{title}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                    </div>
+                    <div class="row g-3 mb-3">
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Ngành nghề <span class="text-danger">*</span></label>
+                            <select class="form-select" th:field="*{industryId}">
+                                <option value="" disabled selected>Chọn ngành nghề</option>
+                                <option th:each="industry : ${listIndustry}" th:value="${industry.getIndustryId()}" th:text="${industry.getIndustryName()}"></option>
+                            </select>
+                            <span class="text-danger" th:if="${#fields.hasErrors('industryId')}" th:errors="*{industryId}"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Loại hình làm việc <span class="text-danger">*</span></label>
+                            <select class="form-select" th:field="*{employmentType}">
+                                <option value="" disabled selected>Chọn loại hình</option>
+                                <option th:each="employmentType : ${listEnploymentType}" th:value="${employmentType.name()}" th:text="${employmentType.name()}"></option>
+                            </select>
+                            <span class="text-danger" th:if="${#fields.hasErrors('employmentType')}" th:errors="*{employmentType}"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Cấp bậc <span class="text-danger">*</span></label>
+                            <select class="form-select" th:field="*{jobLevel}">
+                                <option value="" disabled selected>Chọn cấp bậc</option>
+                                <option th:each="jobLevel : ${listJobLevel}" th:value="${jobLevel.name()}" th:text="${jobLevel.name()}"></option>
+                            </select>
+                            <span class="text-danger" th:if="${#fields.hasErrors('jobLevel')}" th:errors="*{jobLevel}"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Số lượng tuyển dụng <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" th:field="*{vacancies}">
+                            <span class="text-danger" th:if="${#fields.hasErrors('vacancies')}" th:errors="*{vacancies}"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Địa điểm làm việc <span class="text-danger">*</span></label>
+                            <select class="form-select" th:field="*{provinceId}">
+                                <option value="" disabled selected>Chọn địa điểm</option>
+                                <option th:each="province : ${listProvince}" th:value="${province.provinceId}" th:text="${province.provinceName}"></option>
+                            </select>
+                            <span class="text-danger" th:if="${#fields.hasErrors('provinceId')}" th:errors="*{provinceId}"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Chi tiết địa điểm <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" th:field="*{locationDetail}" placeholder="Số nhà 123,..">
+                            <span class="text-danger" th:if="${#fields.hasErrors('locationDetail')}" th:errors="*{locationDetail}"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Lương tối thiểu (USD)</label>
+                            <input type="number" class="form-control" placeholder="Từ" th:field="*{salaryMin}">
+                            <span class="text-danger" th:if="${#fields.hasErrors('salaryMin')}" th:errors="*{salaryMin}"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Lương tối đa (USD)</label>
+                            <input type="number" class="form-control" placeholder="Đến" th:field="*{salaryMax}">
+                            <span class="text-danger" th:if="${#fields.hasErrors('salaryMax')}" th:errors="*{salaryMax}"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Hạn nộp hồ sơ<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" placeholder="Hạn nộp hồ sơ" th:field="*{expiredDate}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('expiredDate')}" th:errors="*{expiredDate}"></span>
+                    </div>
+                </div>
+
+                <!-- Chi tiết công việc -->
+                <div class="card card-custom p-4 mb-4">
+                    <h5 class="fw-bold border-bottom pb-2 mb-4">Chi tiết công việc</h5>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Mô tả công việc <span class="text-danger">*</span></label>
+                        <textarea class="form-control" rows="5" placeholder="Mô tả công việc hàng ngày..." th:field="*{description}"></textarea>
+                        <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Yêu cầu ứng viên <span class="text-danger">*</span></label>
+                        <textarea class="form-control" rows="5" placeholder="Kỹ năng, bằng cấp cần thiết..." th:field="*{requirement}"></textarea>
+                        <span class="text-danger" th:if="${#fields.hasErrors('requirement')}" th:errors="*{requirement}"></span>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary-custom px-4" type="submit">Gửi phê duyệt</button>
+                    </div>
+                </div>
+
+                </form>
+            </div>
+            <!-- Cài đặt tin -->
+            <div class="col-lg-4">
+                <div class="card card-custom p-4 sticky-top" style="top: 90px;">
+                    <h5 class="fw-bold border-bottom pb-2 mb-4">Cài đặt hiển thị</h5>
+
+                    <div class="alert alert-info small mb-0">
+                        <i class="bi bi-info-circle me-1"></i> Tin tuyển dụng sau khi tạo sẽ được gửi tới Admin để phê duyệt trước khi hiển thị công khai.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+

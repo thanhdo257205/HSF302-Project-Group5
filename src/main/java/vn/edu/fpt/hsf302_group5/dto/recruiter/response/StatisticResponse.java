@@ -1,4 +1,4 @@
-package vn.edu.fpt.hsf302_group5.dto;
+package vn.edu.fpt.hsf302_group5.dto.recruiter.response;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
