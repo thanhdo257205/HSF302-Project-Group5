@@ -239,6 +239,8 @@ CREATE TABLE job_post
     job_level               VARCHAR(30),
     vacancies               INT           DEFAULT 1,
     title                   NVARCHAR(200) NOT NULL,
+    benefit                 NVARCHAR(MAX),
+    experience_level         NVARCHAR(30),
     description             NVARCHAR(MAX) NOT NULL,
     requirement             NVARCHAR(MAX),
     location_detail         NVARCHAR(200),

@@ -91,7 +91,7 @@
                                         class="bi bi-clock text-danger me-2"></i></span>
                             </div>
                             <div class="mt-auto">
-                                <a href="job-detail.html" class="btn btn-outline-primary-custom w-100">Xem chi tiết</a>
+                                <a th:href="@{/candidate/jobs/job-detail/{id}(id=${jobPostResponse.getJobId()})}" class="btn btn-outline-primary-custom w-100">Xem chi tiết</a>
                             </div>
                         </div>
                     </div>

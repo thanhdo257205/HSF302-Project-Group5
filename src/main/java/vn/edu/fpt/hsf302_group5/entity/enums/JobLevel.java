@@ -4,6 +4,7 @@ public enum JobLevel {
     INTERN,
     FRESHER,
     JUNIOR,
+    MID,
     SENIOR,
     MANAGER
 }

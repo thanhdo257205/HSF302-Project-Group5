@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import vn.edu.fpt.hsf302_group5.dto.job_post.JobPostDetailDTO;
 import vn.edu.fpt.hsf302_group5.dto.recruiter.request.JobPostFormRequest;
 import vn.edu.fpt.hsf302_group5.dto.recruiter.response.StatisticResponse;
 import vn.edu.fpt.hsf302_group5.dto.job_post.JobPostResponse;
@@ -67,5 +68,11 @@ public class JobPostServiceImpl implements JobPostService {
         jobPost.setStatus(JobStatus.PENDING);
         //
         return jobPostRepository.save(jobPost);
+    }
+
+    @Override
+    public JobPostDetailDTO getJobPostDetaiDTOByJobPostId(Integer jobPostId) {
+        JobPostDetailDTO jobPostDetailDTO = jobPostRepository.getJobPostDetaiDTOByJobPostId(jobPostId);
+        return jobPostDetailDTO;
     }
 }

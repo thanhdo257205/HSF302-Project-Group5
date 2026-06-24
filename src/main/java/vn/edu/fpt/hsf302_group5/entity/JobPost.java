@@ -3,6 +3,7 @@ package vn.edu.fpt.hsf302_group5.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import vn.edu.fpt.hsf302_group5.entity.enums.EmploymentType;
+import vn.edu.fpt.hsf302_group5.entity.enums.ExperienceLevel;
 import vn.edu.fpt.hsf302_group5.entity.enums.JobLevel;
 import vn.edu.fpt.hsf302_group5.entity.enums.JobStatus;
 import java.math.BigDecimal;
@@ -40,6 +41,10 @@ public class JobPost {
     @Column(name = "approved_by")
     private Integer approvedBy;
 
+    @Column(name = "experience_level")
+    @Enumerated(EnumType.STRING)
+    private ExperienceLevel experienceLevel;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "approved_by", insertable = false, updatable = false)
     private User approver;
@@ -60,6 +65,9 @@ public class JobPost {
 
     @Column(name = "requirement", columnDefinition = "NVARCHAR(MAX)")
     private String requirement;
+
+    @Column(name = "benefit", columnDefinition = "NVARCHAR(MAX)")
+    private String benefit;
 
     @Column(name = "location_detail", length = 200)
     private String locationDetail;

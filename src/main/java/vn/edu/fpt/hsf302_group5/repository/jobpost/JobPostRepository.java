@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import vn.edu.fpt.hsf302_group5.dto.job_post.JobPostDetailDTO;
 import vn.edu.fpt.hsf302_group5.dto.recruiter.response.StatisticResponse;
 import vn.edu.fpt.hsf302_group5.dto.job_post.JobPostResponse;
 import vn.edu.fpt.hsf302_group5.entity.JobPost;
@@ -55,4 +56,33 @@ public interface JobPostRepository extends JpaRepository<JobPost,Integer> {
     );
 
 
+    @Query("""
+             SELECT new vn.edu.fpt.hsf302_group5.dto.job_post.JobPostDetailDTO(
+                 j.jobId, 
+                 j.jobLevel, 
+                 j.experienceLevel,
+                 c.logoUrl, 
+                 j.title, 
+                 j.description, 
+                 j.requirement, 
+                 j.benefit, 
+                 j.locationDetail, 
+                 c.companyName, 
+                 p.provinceName, 
+                 j.salaryMin, 
+                 j.salaryMax, 
+                 j.employmentType, 
+                 j.status, 
+                 j.postedDate, 
+                 j.expiredDate, 
+                 au.unitName
+             ) 
+             FROM JobPost j 
+             LEFT JOIN j.recruiter r 
+             LEFT JOIN r.company c 
+             LEFT JOIN j.province p 
+             LEFT JOIN j.administrativeUnit au 
+             WHERE j.jobId = :jobPostId
+            """)
+    JobPostDetailDTO getJobPostDetaiDTOByJobPostId(@Param("jobPostId") Integer jobPostId);
 }
