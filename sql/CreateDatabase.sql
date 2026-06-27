@@ -391,3 +391,17 @@ CREATE TABLE interviews
     CONSTRAINT fk_interview_application FOREIGN KEY (application_id)
         REFERENCES applications (application_id)
 );
+
+-- =========================
+-- VERIFICATION TOKENS
+-- =========================
+CREATE TABLE verification_tokens
+(
+    token_id    INT IDENTITY(1,1) PRIMARY KEY,
+    token       VARCHAR(255) NOT NULL UNIQUE,
+    user_id     INT NOT NULL UNIQUE,
+    expiry_date DATETIME2 NOT NULL,
+
+    CONSTRAINT fk_verification_tokens_user FOREIGN KEY (user_id)
+        REFERENCES users (user_id) ON DELETE CASCADE
+);

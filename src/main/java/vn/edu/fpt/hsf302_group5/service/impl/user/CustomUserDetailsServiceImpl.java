@@ -30,10 +30,6 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng với email " + username)); //ném về UsernameNotFoundException để có thể quay lại trang login báo rằng không có user có email như thế
 
-        if (user.getStatus() == UserStatus.INACTIVE) {
-            throw new DisabledException("Tài khoản chưa được xác thực");
-        }
-
         Set<Permission> permissions = user.getRole().getPermissions();
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (Permission permission : permissions) {
@@ -43,6 +39,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
         return org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
                 .password(user.getPasswordHash())
+                .disabled(user.getStatus() == UserStatus.INACTIVE)
                 .authorities(grantedAuthorities)
                 .build();
     }

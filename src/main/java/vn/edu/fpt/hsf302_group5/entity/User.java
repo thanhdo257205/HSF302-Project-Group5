@@ -64,4 +64,7 @@ public class User {
     @OneToMany(mappedBy = "approver", cascade = CascadeType.ALL)
     @Builder.Default
     private Set<JobPost> approvedJobPosts = new HashSet<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private VerificationToken verificationToken;
 }

@@ -10,4 +10,7 @@ public interface UserMapper {
 
     @Mapping(source = "password", target = "passwordHash")
     User toUserEntity(UserRequertDTO userRequertDTO);
+
+    @Mapping(source = "passwordHash", target = "password")
+    UserRequertDTO toUserDTO(User user);
 }
