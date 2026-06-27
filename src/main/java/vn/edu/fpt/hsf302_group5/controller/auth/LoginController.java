@@ -10,4 +10,14 @@ public class LoginController {
     public String loginPage() {
         return "pages/public/login";
     }
+
+    @GetMapping("/register")
+    public String registerPage() {
+        return "pages/public/register";
+    }
+
+    @GetMapping("/register-recruiter")
+    public String registerRecruiterPage() {
+        return "pages/public/register-recruiter";
+    }
 }

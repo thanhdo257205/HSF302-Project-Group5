@@ -8,63 +8,102 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../../../static/assets/css/common.css">
-    <link rel="stylesheet" href="../../../static/assets/css/public.css">
+    <link rel="stylesheet" th:href="@{/assets/css/common.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/public.css}">
 </head>
 <body>
 
 <!-- Header Placeholder -->
-<div th:replace="~{fragments/header :: header}"></div>
+<div th:replace="~{fragments/header :: header(activePage='register')}"></div>
 
-<section class="auth-wrapper">
-    <div class="card card-custom auth-card register-card">
+<section class="auth-wrapper" style="background-color: #f4f6f8;">
+    <div class="candidate-register-container">
         <div class="text-center mb-4">
-            <h3 class="fw-bold text-primary">Đăng ký tài khoản</h3>
-            <p class="text-muted">Tham gia ngay mạng lưới việc làm lớn nhất</p>
+            <h3 class="fw-bold mb-1" style="color: #212f3f;">Đăng ký <span class="text-green-topcv">JobPortal</span></h3>
+            <p class="text-muted small">Tạo tài khoản miễn phí, tìm kiếm hơn 60.000 việc làm.</p>
         </div>
 
-        <form>
-            <div class="mb-4 d-flex gap-4 justify-content-center">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="roleOptions" id="roleCandidate" value="candidate" checked>
-                    <label class="form-check-label fw-bold" for="roleCandidate">Ứng viên</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="roleOptions" id="roleEmployer" value="employer">
-                    <label class="form-check-label fw-bold" for="roleEmployer">Nhà tuyển dụng</label>
+        <form th:action="@{/register}" method="post">
+            <!-- CSRF Token or hidden fields can be added here by backend -->
+            <div class="mb-3">
+                <label class="topcv-label">Họ và tên</label>
+                <div class="topcv-input-group">
+                    <i class="bi bi-person prefix-icon text-green-topcv"></i>
+                    <input type="text" name="fullName" class="form-control" placeholder="Nhập họ và tên" required>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Họ và tên</label>
-                <input type="text" class="form-control" placeholder="Nhập họ và tên" required>
+                <label class="topcv-label">Email</label>
+                <div class="topcv-input-group">
+                    <i class="bi bi-envelope prefix-icon text-green-topcv"></i>
+                    <input type="email" name="email" class="form-control" placeholder="Nhập email" required>
+                </div>
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Email</label>
-                <input type="email" class="form-control" placeholder="Nhập địa chỉ email" required>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Mật khẩu</label>
-                    <input type="password" class="form-control" placeholder="Mật khẩu" required>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <label class="form-label fw-bold">Xác nhận mật khẩu</label>
-                    <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                <label class="topcv-label">Mật khẩu</label>
+                <div class="topcv-input-group">
+                    <i class="bi bi-lock prefix-icon text-green-topcv"></i>
+                    <input type="password" name="password" id="passwordField" class="form-control" placeholder="Nhập mật khẩu" required>
+                    <i class="bi bi-eye-slash toggle-password" onclick="togglePasswordVisibility('passwordField', this)"></i>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary-custom w-100 mb-3">Đăng ký</button>
+            <div class="mb-3">
+                <label class="topcv-label">Xác nhận mật khẩu</label>
+                <div class="topcv-input-group">
+                    <i class="bi bi-lock prefix-icon text-green-topcv"></i>
+                    <input type="password" name="confirmPassword" id="confirmPasswordField" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                    <i class="bi bi-eye-slash toggle-password" onclick="togglePasswordVisibility('confirmPasswordField', this)"></i>
+                </div>
+            </div>
 
-            <div class="text-center mt-3">
-                <span class="text-muted">Đã có tài khoản? </span>
-                <a href="login.html" class="text-decoration-none fw-bold">Đăng nhập</a>
+            <div class="mb-4">
+                <div class="form-check d-flex align-items-start gap-2">
+                    <input class="form-check-input" type="checkbox" id="termsCheck" required style="margin-top: 4px; accent-color: #00b14f;">
+                    <label class="topcv-checkbox-label" for="termsCheck">
+                        Tôi đã đọc và đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a> của JobPortal (Bắt buộc)
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-topcv-green-submit mb-3">
+                Đăng ký <i class="bi bi-arrow-right"></i>
+            </button>
+
+            <div class="topcv-divider">Hoặc</div>
+
+            <a href="#" class="btn btn-topcv-outline-submit mb-4">
+                Đăng ký bằng tài khoản mạng xã hội <i class="bi bi-arrow-right"></i>
+            </a>
+
+            <div class="text-center">
+                <span class="text-muted small">Bạn đã có tài khoản? </span>
+                <a href="login.html" th:href="@{/login}" class="text-decoration-none fw-bold text-green-topcv small">Đăng nhập ngay</a>
+            </div>
+
+            <div class="topcv-help-footer">
+                Bạn gặp khó khăn khi tạo tài khoản? Vui lòng gọi tới số <strong class="text-green-topcv">1900 068 889</strong> | Nhánh 2 (giờ hành chính).
             </div>
         </form>
     </div>
 </section>
+
+<script>
+    function togglePasswordVisibility(fieldId, iconElement) {
+        const passwordInput = document.getElementById(fieldId);
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            iconElement.classList.remove('bi-eye-slash');
+            iconElement.classList.add('bi-eye');
+        } else {
+            passwordInput.type = 'password';
+            iconElement.classList.remove('bi-eye');
+            iconElement.classList.add('bi-eye-slash');
+        }
+    }
+</script>
 
 <!-- Footer Placeholder -->
 <div th:replace="~{fragments/footer :: footer}"></div>

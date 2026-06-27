@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - JobPortal</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/assets/css/common.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/public.css}">
+</head>
+<body>
+
+<!-- Header Placeholder -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Hero Banner -->
+<section class="hero-banner text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3">Tìm công việc mơ ước của bạn</h1>
+        <p class="subtitle mb-5">Khám phá hàng ngàn cơ hội việc làm từ các doanh nghiệp hàng đầu</p>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form class="search-bar-hero d-flex flex-column flex-md-row gap-2">
+                    <div class="flex-grow-1 border-end-custom pe-md-2">
+                        <input type="text" class="form-control form-control-lg" placeholder="Từ khóa, kỹ năng, chức danh...">
+                    </div>
+                    <div class="flex-grow-1 border-end-custom px-md-2">
+                        <select class="form-select form-select-lg">
+                            <option value="">Tất cả địa điểm</option>
+                            <option value="HCM">Hồ Chí Minh</option>
+                            <option value="HN">Hà Nội</option>
+                            <option value="DN">Đà Nẵng</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom btn-lg px-4">Tìm việc</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Job Categories -->
+<section class="py-5 bg-white">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Danh mục ngành nghề</h2>
+            <p class="text-muted">Lựa chọn công việc theo chuyên môn của bạn</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="category-card">
+                    <i class="bi bi-laptop category-icon"></i>
+                    <h6 class="fw-bold mb-0">CNTT</h6>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="category-card">
+                    <i class="bi bi-megaphone category-icon"></i>
+                    <h6 class="fw-bold mb-0">Marketing</h6>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="category-card">
+                    <i class="bi bi-calculator category-icon"></i>
+                    <h6 class="fw-bold mb-0">Kế toán</h6>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="category-card">
+                    <i class="bi bi-palette category-icon"></i>
+                    <h6 class="fw-bold mb-0">Thiết kế</h6>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="category-card">
+                    <i class="bi bi-graph-up-arrow category-icon"></i>
+                    <h6 class="fw-bold mb-0">Kinh doanh</h6>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="category-card">
+                    <i class="bi bi-people category-icon"></i>
+                    <h6 class="fw-bold mb-0">Nhân sự</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Jobs -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <div>
+                <h2 class="fw-bold">Việc làm nổi bật</h2>
+                <p class="text-muted mb-0">Cơ hội tốt nhất hôm nay</p>
+            </div>
+            <a href="../candidate/job-list.html" class="text-decoration-none fw-bold">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+        </div>
+
+        <div class="row g-4">
+            <!-- Job Card 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom job-card h-100 p-4">
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <img src="https://ui-avatars.com/api/?name=Company&background=random&color=fff&size=60/e9ecef/adb5bd?text=Logo" alt="Company" class="company-logo">
+                        <div>
+                            <h5 class="fw-bold mb-1">Senior Java Developer</h5>
+                            <p class="text-muted small mb-0">TechCorp Vietnam</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge badge-soft-success"><i class="bi bi-currency-dollar"></i> 1500 - 2500 USD</span>
+                            <span class="badge badge-soft-secondary"><i class="bi bi-geo-alt"></i> Hồ Chí Minh</span>
+                        </div>
+                        <a href="../candidate/job-detail.html" class="btn btn-outline-primary-custom w-100 text-center text-decoration-none">Ứng tuyển ngay</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom job-card h-100 p-4">
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <img src="https://ui-avatars.com/api/?name=Company&background=random&color=fff&size=60/e9ecef/adb5bd?text=Logo" alt="Company" class="company-logo">
+                        <div>
+                            <h5 class="fw-bold mb-1">Marketing Manager</h5>
+                            <p class="text-muted small mb-0">Global Retail JSC</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge badge-soft-success"><i class="bi bi-currency-dollar"></i> 1000 - 1500 USD</span>
+                            <span class="badge badge-soft-secondary"><i class="bi bi-geo-alt"></i> Hà Nội</span>
+                        </div>
+                        <a href="../candidate/job-detail.html" class="btn btn-outline-primary-custom w-100 text-center text-decoration-none">Ứng tuyển ngay</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-custom job-card h-100 p-4">
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <img src="https://ui-avatars.com/api/?name=Company&background=random&color=fff&size=60/e9ecef/adb5bd?text=Logo" alt="Company" class="company-logo">
+                        <div>
+                            <h5 class="fw-bold mb-1">UI/UX Designer</h5>
+                            <p class="text-muted small mb-0">Creative Studio</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge badge-soft-success"><i class="bi bi-currency-dollar"></i> Lên đến 1200 USD</span>
+                            <span class="badge badge-soft-secondary"><i class="bi bi-geo-alt"></i> Đà Nẵng</span>
+                        </div>
+                        <a href="../candidate/job-detail.html" class="btn btn-outline-primary-custom w-100 text-center text-decoration-none">Ứng tuyển ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Top Companies -->
+<section class="py-5 bg-white border-top border-bottom top-companies">
+    <div class="container text-center">
+        <h5 class="fw-bold text-muted mb-4">Các doanh nghiệp hàng đầu đang tuyển dụng</h5>
+        <div class="d-flex justify-content-center flex-wrap gap-5 align-items-center">
+            <img src="https://ui-avatars.com/api/?name=Company&background=random&color=fff&size=120x40/fff/adb5bd?text=Company+1" alt="Company">
+            <img src="https://ui-avatars.com/api/?name=Company&background=random&color=fff&size=120x40/fff/adb5bd?text=Company+2" alt="Company">
+            <img src="https://ui-avatars.com/api/?name=Company&background=random&color=fff&size=120x40/fff/adb5bd?text=Company+3" alt="Company">
+            <img src="https://ui-avatars.com/api/?name=Company&background=random&color=fff&size=120x40/fff/adb5bd?text=Company+4" alt="Company">
+            <img src="https://ui-avatars.com/api/?name=Company&background=random&color=fff&size=120x40/fff/adb5bd?text=Company+5" alt="Company">
+        </div>
+    </div>
+</section>
+
+<!-- Footer Placeholder -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script for Include -->
+
+</body>
+</html>
+

@@ -31,9 +31,10 @@
             </ul>
 
             <!-- Nút đăng nhập / đăng ký -->
-            <div class="d-flex gap-2">
-                <a href="../public/login.html" class="btn btn-outline-primary-custom">Đăng nhập</a>
-                <a href="../public/register.html" class="btn btn-primary-custom">Đăng ký</a>
+            <div class="d-flex align-items-center gap-2">
+                <a href="../public/register.html" th:href="@{/register}" class="btn btn-topcv-register" th:classappend="${activePage == 'register' ? 'active' : ''}">Đăng ký</a>
+                <a href="../public/login.html" th:href="@{/login}" class="btn btn-topcv-login" th:classappend="${activePage == 'login' ? 'active' : ''}">Đăng nhập</a>
+                <a href="../public/register-recruiter.html" th:href="@{/register-recruiter}" class="btn btn-topcv-recruiter" th:classappend="${activePage == 'register-recruiter' ? 'active' : ''}">Đăng tuyển & tìm hồ sơ</a>
             </div>
         </div>
     </div>

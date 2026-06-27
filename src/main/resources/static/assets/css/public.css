@@ -137,7 +137,7 @@
     display: flex;
 }
 .auth-sidebar {
-    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    background: linear-gradient(135deg, #00c257 0%, #009a44 100%);
     color: #ffffff;
     padding: 48px;
     width: 45%;
@@ -188,10 +188,10 @@
 }
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label {
-    color: #0d6efd;
+    color: #00b14f;
 }
 .login-btn {
-    background-color: #0d6efd;
+    background-color: #00b14f;
     color: #ffffff;
     border: none;
     padding: 12px;
@@ -201,7 +201,7 @@
     transition: all 0.3s ease;
 }
 .login-btn:hover {
-    background-color: #0b5ed7;
+    background-color: #009a44;
     transform: translateY(-1px);
 }
 @media (max-width: 768px) {
@@ -217,3 +217,296 @@
         padding: 30px;
     }
 }
+
+/* ==========================================================================
+   TOPCV STYLE CUSTOMIZATIONS (CANDIDATE & RECRUITER REGISTRATION)
+   ========================================================================== */
+
+/* Header buttons styled like TopCV */
+.btn-topcv-register {
+    color: #00b14f !important;
+    background-color: transparent !important;
+    border: 1.5px solid #00b14f !important;
+    border-radius: 24px !important;
+    padding: 6px 20px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out;
+}
+.btn-topcv-register:hover, .btn-topcv-register.active {
+    color: #ffffff !important;
+    background-color: #00b14f !important;
+}
+
+.btn-topcv-login {
+    color: #00b14f !important;
+    background-color: transparent !important;
+    border: 1.5px solid #00b14f !important;
+    border-radius: 24px !important;
+    padding: 6px 20px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out;
+}
+.btn-topcv-login:hover, .btn-topcv-login.active {
+    background-color: #00b14f !important;
+    border-color: #00b14f !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.25) !important;
+}
+
+.btn-topcv-recruiter {
+    color: #212f3f !important;
+    background-color: #f4f6f8 !important;
+    border: 1.5px solid #f4f6f8 !important;
+    border-radius: 24px !important;
+    padding: 6px 20px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out;
+}
+.btn-topcv-recruiter:hover, .btn-topcv-recruiter.active {
+    background-color: #212f3f !important;
+    border-color: #212f3f !important;
+    color: #ffffff !important;
+}
+
+/* Candidate registration specific container */
+.candidate-register-container {
+    max-width: 550px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    border: 1px solid #f0f0f0;
+}
+
+/* Recruiter registration specific container */
+.recruiter-register-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    border: 1px solid #eef2f5;
+}
+
+/* Regulation card for Recruiter page */
+.recruiter-regulation-card {
+    background-color: #f6fcf8;
+    border: 1px solid #00b14f;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+.recruiter-regulation-title {
+    color: #00b14f;
+    font-weight: bold;
+    font-size: 1.15rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+.recruiter-regulation-body {
+    margin-top: 12px;
+    font-size: 0.925rem;
+    color: #4a4a4a;
+    line-height: 1.6;
+}
+.recruiter-regulation-body p {
+    margin-bottom: 8px;
+}
+.recruiter-regulation-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Google Recruiter registration button */
+.btn-google-recruiter {
+    background-color: #4285f4;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    width: 100%;
+}
+.btn-google-recruiter:hover {
+    background-color: #357ae8;
+}
+
+/* TopCV specific labels and inputs */
+.topcv-label {
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+.topcv-label span.text-danger {
+    color: #ff3b30 !important;
+}
+
+.topcv-input-group {
+    position: relative;
+    margin-bottom: 18px;
+}
+.topcv-input-group i.prefix-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00b14f;
+    font-size: 1.05rem;
+    z-index: 5;
+}
+.topcv-input-group .form-control, 
+.topcv-input-group .form-select {
+    padding-left: 42px;
+    padding-right: 42px;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.topcv-input-group .form-control:focus, 
+.topcv-input-group .form-select:focus {
+    border-color: #00b14f;
+    box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1);
+}
+
+.topcv-input-group .toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #8c98a5;
+    font-size: 1.05rem;
+    z-index: 10;
+}
+
+/* Checkbox and consent options */
+.topcv-checkbox-label {
+    font-size: 0.9rem;
+    color: #4a525d;
+    cursor: pointer;
+    line-height: 1.4;
+}
+.topcv-checkbox-label a {
+    color: #00b14f;
+    font-weight: 600;
+    text-decoration: none;
+}
+.topcv-checkbox-label a:hover {
+    text-decoration: underline;
+}
+
+.consent-sub-info {
+    margin-left: 24px;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+.consent-sub-info.green-info {
+    background-color: #f7faf9;
+    border-left: 3px solid #00b14f;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: #555e69;
+}
+.consent-sub-info.red-info {
+    color: #ff3b30;
+}
+
+/* General button modifications for Submit */
+.btn-topcv-green-submit {
+    background-color: #00b14f;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 30px;
+    font-weight: bold;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    transition: background-color 0.2s, transform 0.1s;
+    text-decoration: none;
+}
+.btn-topcv-green-submit:hover {
+    background-color: #009a44;
+}
+.btn-topcv-green-submit:active {
+    transform: scale(0.99);
+}
+
+.btn-topcv-outline-submit {
+    background-color: transparent;
+    color: #212529 !important;
+    border: 1px solid #dee2e6;
+    border-radius: 24px;
+    padding: 12px 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    transition: background-color 0.2s;
+    text-decoration: none;
+}
+.btn-topcv-outline-submit:hover {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+.topcv-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #8c98a5;
+    margin: 24px 0;
+    font-size: 0.9rem;
+}
+.topcv-divider::before, .topcv-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #eef2f5;
+}
+.topcv-divider:not(:empty)::before {
+    margin-right: .5em;
+}
+.topcv-divider:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.text-green-topcv {
+    color: #00b14f !important;
+}
+
+.topcv-help-footer {
+    background-color: #f4f6f8;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.85rem;
+    color: #555e69;
+    text-align: center;
+    margin-top: 24px;
+}
+
