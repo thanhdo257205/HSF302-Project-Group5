@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký thành công - JobPortal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" th:href="@{/assets/css/common.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/public.css}">
+
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header(activePage='register')}"></div>
+
+<section class="auth-wrapper d-flex align-items-center justify-content-center" style="background-color: #f4f6f8; min-height: 70vh; padding: 2rem 0;">
+    <div class="container d-flex justify-content-center">
+        <div class="success-card">
+            <div class="icon-circle">
+                <i class="bi bi-envelope-check-fill"></i>
+            </div>
+            
+            <h3 class="fw-bold mb-3" style="color: #212f3f;">Đăng ký tài khoản thành công!</h3>
+            
+            <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+                Chào mừng bạn đến với <strong class="text-green-topcv">JobPortal</strong>. Một email xác thực đã được gửi tới địa chỉ email của bạn. Vui lòng kiểm tra hòm thư (bao gồm cả thư mục Spam/Quảng cáo) và click vào liên kết xác nhận để kích hoạt tài khoản.
+            </p>
+
+            <div class="d-grid gap-2 col-md-8 mx-auto mb-4">
+                <a th:href="@{/login}" class="btn btn-topcv-green-submit text-decoration-none d-flex align-items-center justify-content-center gap-2 py-2.5">
+                    <i class="bi bi-box-arrow-in-right"></i> Đi tới trang Đăng nhập
+                </a>
+            </div>
+
+            <div class="topcv-help-footer border-top pt-3 mt-4 text-muted small">
+                Không nhận được email? Vui lòng kiểm tra kỹ địa chỉ email đã đăng ký hoặc liên hệ hỗ trợ: <strong class="text-green-topcv">1900 068 889</strong>.
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

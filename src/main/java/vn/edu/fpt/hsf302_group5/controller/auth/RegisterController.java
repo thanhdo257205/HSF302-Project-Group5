@@ -43,7 +43,12 @@ public class RegisterController {
             model.addAttribute("errors", e.getMessage());
             return "pages/public/register";
         }
-        return "redirect:/login";
+        return "redirect:/register-success";
+    }
+
+    @GetMapping("/register-success")
+    public String registerSuccessPage() {
+        return "pages/public/register-success";
     }
 
     @GetMapping("/verify")

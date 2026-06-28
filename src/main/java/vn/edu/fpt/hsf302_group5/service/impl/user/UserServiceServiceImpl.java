@@ -56,6 +56,7 @@ public class UserServiceServiceImpl implements UserService {
         verificationToken.setUser(newUser);
 
         verificationTokenService.save(verificationToken);
+        newUser.setVerificationToken(verificationToken);
 
         String linkRegisterConfirm = AppConstants.LINK_VERIFY_ACCOUNT + token;
 
