@@ -7,5 +7,7 @@ public interface UserService {
 
     Boolean registerUser(UserRequertDTO user);
 
+    void resendVerificationToken(String email);
+
     void save(User user);
 }

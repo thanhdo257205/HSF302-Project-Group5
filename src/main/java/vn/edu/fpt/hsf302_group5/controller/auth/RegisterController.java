@@ -43,12 +43,27 @@ public class RegisterController {
             model.addAttribute("errors", e.getMessage());
             return "pages/public/register";
         }
-        return "redirect:/register-success";
+        return "redirect:/register-success?email=" + userRequestDTO.getEmail();
     }
 
     @GetMapping("/register-success")
-    public String registerSuccessPage() {
+    public String registerSuccessPage(@RequestParam(value = "email", required = false) String email, @RequestParam(value = "resent", required = false) Boolean resent, Model model) {
+        model.addAttribute("email", email);
+        model.addAttribute("resent", resent);
         return "pages/public/register-success";
+    }
+
+    @GetMapping("/resend-verification")
+    public String resendVerification(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+        try {
+            userService.resendVerificationToken(email);
+            redirectAttributes.addAttribute("email", email);
+            redirectAttributes.addAttribute("resent", true);
+        } catch (Exception e) {
+            redirectAttributes.addAttribute("email", email);
+            redirectAttributes.addAttribute("error", e.getMessage());
+        }
+        return "redirect:/register-success";
     }
 
     @GetMapping("/verify")

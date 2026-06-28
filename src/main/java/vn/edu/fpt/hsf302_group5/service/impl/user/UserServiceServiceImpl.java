@@ -65,6 +65,35 @@ public class UserServiceServiceImpl implements UserService {
         return true;
     }
 
+    @Transactional
+    @Override
+    public void resendVerificationToken(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Email không tồn tại!"));
+
+        if (user.getStatus() == UserStatus.ACTIVE) {
+            throw new RuntimeException("Tài khoản đã được kích hoạt trước đó!");
+        }
+
+        String token = UUID.randomUUID().toString();
+        LocalDateTime expireDate = LocalDateTime.now().plusHours(AppConstants.VERRIFI_TOKEN_REGISTER);
+
+        VerificationToken verificationToken = user.getVerificationToken();
+        if (verificationToken == null) {
+            verificationToken = new VerificationToken();
+            verificationToken.setUser(user);
+        }
+        verificationToken.setToken(token);
+        verificationToken.setExpiryDate(expireDate);
+
+        verificationTokenService.save(verificationToken);
+        user.setVerificationToken(verificationToken);
+        userRepository.save(user);
+
+        String linkRegisterConfirm = AppConstants.LINK_VERIFY_ACCOUNT + token;
+        emailService.sendVerificationEmail(user.getEmail(), linkRegisterConfirm);
+    }
+
     @Override
     public void save(User user) {
         userRepository.save(user);
