@@ -44,6 +44,7 @@ public class SecurityConfig {
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .loginProcessingUrl("/login") // Post
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .failureHandler(((request, response, exception) -> {
