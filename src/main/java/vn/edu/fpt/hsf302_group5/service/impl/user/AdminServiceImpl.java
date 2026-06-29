@@ -1,0 +1,90 @@
+package vn.edu.fpt.hsf302_group5.service.impl.user;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import vn.edu.fpt.hsf302_group5.dto.admin.CompanyDashboardResponse;
+import vn.edu.fpt.hsf302_group5.dto.admin.JobPostDashboardResponse;
+import vn.edu.fpt.hsf302_group5.entity.Company;
+import vn.edu.fpt.hsf302_group5.entity.JobPost;
+import vn.edu.fpt.hsf302_group5.entity.enums.JobStatus;
+import vn.edu.fpt.hsf302_group5.entity.enums.UserRole;
+import vn.edu.fpt.hsf302_group5.repository.company.CompanyRepository;
+import vn.edu.fpt.hsf302_group5.repository.user.UserRepository;
+import vn.edu.fpt.hsf302_group5.repository.jobpost.JobPostRepository;
+import vn.edu.fpt.hsf302_group5.service.user.AdminService;
+
+import java.util.List;
+import java.util.ArrayList;
+
+@Service
+@Transactional(readOnly = true)
+public class AdminServiceImpl implements AdminService {
+
+    @Autowired
+    private final UserRepository userRepository;
+
+    @Autowired
+    private final CompanyRepository companyRepository;
+
+    @Autowired
+    private  final JobPostRepository jobPostRepository;
+
+    public AdminServiceImpl(UserRepository userRepository, CompanyRepository companyRepository, JobPostRepository jobPostRepository){
+        this.userRepository = userRepository;
+        this.companyRepository = companyRepository;
+        this.jobPostRepository = jobPostRepository;
+    }
+
+    @Override
+    public long countCandidates() {
+        return userRepository.countByRole(UserRole.CANDIDATE);
+    }
+
+    @Override
+    public long countRecruiters() {
+        return userRepository.countByRole(UserRole.RECRUITER);
+    }
+
+    @Override
+    public long countCompanies() {
+        return companyRepository.count();
+    }
+
+    @Override
+    public long countJobPosts() {
+        return jobPostRepository.count();
+    }
+
+    @Override
+    public List<JobPostDashboardResponse> getRecentPendingJobs() {
+        List<JobPost> jobPosts = jobPostRepository.findTop5ByStatusOrderByPostedDateDesc(JobStatus.PENDING);
+        List<JobPostDashboardResponse> recentPendingJobs = new ArrayList<>();
+        for (JobPost job : jobPosts) {
+            recentPendingJobs.add(new JobPostDashboardResponse(
+                    job.getJobId(),
+                    job.getTitle(),
+                    job.getRecruiter().getCompany().getCompanyName(),
+                    job.getStatus(),
+                    job.getPostedDate()
+            ));
+        }
+        return recentPendingJobs;
+    }
+
+    @Override
+    public List<CompanyDashboardResponse> getRecentCompanies() {
+        List<Company> companies = companyRepository.findTop5ByOrderByCreatedAtDesc();
+        List<CompanyDashboardResponse> recentCompanies = new ArrayList<>();
+        for (Company comp : companies) {
+            recentCompanies.add(new CompanyDashboardResponse(
+                    comp.getCompanyId(),
+                    comp.getCompanyName(),
+                    comp.getLogoUrl(),
+                    comp.getStatus(),
+                    comp.getCreatedAt()
+            ));
+        }
+        return recentCompanies;
+    }
+}

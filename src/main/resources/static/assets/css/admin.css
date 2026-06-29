@@ -1,0 +1,107 @@
+/* ==========================================================================
+   CSS DÀNH CHO ADMIN QUẢN TRỊ VIÊN (ADMIN.CSS)
+   Gồm: Bảng màu tối (Dark Mode) cho thanh menu bên trái, và các bảng dữ liệu
+   ========================================================================== */
+
+/* Bố cục chia 2 phần (giống ứng viên và nhà tuyển dụng) */
+.admin-layout {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
+
+/* --- Sidebar của Admin (Giao diện sáng chuẩn) --- */
+.admin-sidebar {
+    width: 260px;
+    background: #ffffff; /* Nền trắng giống Candidate/Recruiter */
+    border-right: 1px solid #eaeaea; /* Viền xám */
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    padding: 20px 0;
+}
+
+/* Khu vực nội dung bên phải của Admin */
+.admin-content {
+    flex: 1;
+    padding: 30px;
+    background: #f5f7fb; /* Nền xanh nhạt chuẩn chung */
+}
+
+/* --- Danh sách link trong Sidebar --- */
+.admin-sidebar .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.admin-sidebar .sidebar-menu li {
+    margin-bottom: 5px;
+}
+.admin-sidebar .sidebar-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #495057; /* Chữ xám đậm */
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+/* Khi di chuột vào link Sidebar */
+.admin-sidebar .sidebar-menu a:hover {
+    background-color: rgba(13, 110, 253, 0.05); /* Nền xanh nhạt */
+    color: #0d6efd; /* Chữ xanh dương */
+}
+
+/* Khi trang đó đang mở */
+.admin-sidebar .sidebar-menu a.active {
+    background-color: rgba(13, 110, 253, 0.08);
+    color: #0d6efd;
+    border-left-color: #0d6efd; /* Viền trái xanh dương */
+}
+
+.admin-sidebar .sidebar-menu i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* --- Khu vực chờ load biểu đồ (Placeholder) --- */
+.chart-placeholder {
+    height: 300px; /* Cao 300px */
+    background: #f8f9fa; /* Nền xám nhạt */
+    border-radius: 8px; /* Bo góc 8px */
+    display: flex;
+    align-items: center; /* Canh giữa nội dung báo hiệu chữ loading */
+    justify-content: center;
+    border: 1px dashed #dee2e6; /* Viền đứt khúc */
+    color: #adb5bd; /* Chữ mờ */
+}
+
+/* --- Bảng biểu (Table) đẹp hơn --- */
+.table-responsive {
+    border-radius: 8px; /* Bo tròn các góc của bảng */
+    overflow: hidden; /* Cắt đi những gì lòi ra khỏi bo tròn */
+}
+
+/* Phần Tiêu đề của bảng (Dòng chữ nằm trên cùng bảng) */
+.table thead th {
+    background-color: #f8f9fa; /* Nền tiêu đề bảng màu xám nhạt */
+    font-weight: 600; /* In đậm chữ */
+    border-bottom: 2px solid #dee2e6; /* Gạch dưới dày 2px */
+    color: #495057; /* Chữ xám đậm */
+}
+
+/* --- Hộp thoại Popup mọc ra giữa màn hình (Modal) --- */
+.modal-content {
+    border-radius: 12px; /* Bo góc tròn rất mạnh */
+    border: none; /* Bỏ viền mặc định */
+}
+.modal-header {
+    border-bottom: 1px solid #eaeaea; /* Viền dưới mỏng nhạt */
+}
+.modal-footer {
+    border-top: 1px solid #eaeaea; /* Viền trên mỏng nhạt */
+}

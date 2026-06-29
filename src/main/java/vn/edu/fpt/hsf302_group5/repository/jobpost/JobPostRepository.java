@@ -10,8 +10,10 @@ import vn.edu.fpt.hsf302_group5.dto.job_post.JobPostDetailDTO;
 import vn.edu.fpt.hsf302_group5.dto.recruiter.response.StatisticResponse;
 import vn.edu.fpt.hsf302_group5.dto.job_post.JobPostResponseDTO;
 import vn.edu.fpt.hsf302_group5.entity.JobPost;
+import vn.edu.fpt.hsf302_group5.entity.enums.JobStatus;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Repository
 public interface JobPostRepository extends JpaRepository<JobPost,Integer> {
@@ -85,4 +87,7 @@ public interface JobPostRepository extends JpaRepository<JobPost,Integer> {
              WHERE j.jobId = :jobPostId
             """)
     JobPostDetailDTO getJobPostDetaiDTOByJobPostId(@Param("jobPostId") Integer jobPostId);
+    List<JobPost> findTop5ByStatusOrderByPostedDateDesc(
+        JobStatus status
+    );
 }

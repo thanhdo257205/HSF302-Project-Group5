@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng điều khiển - JobPortal Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" th:href="@{/assets/css/common.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/admin.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="admin-layout">
+    <!-- Thay thế sidebar tĩnh bằng fragment dynamic -->
+    <div th:replace="~{fragments/admin-sidebar :: admin-sidebar('dashboard')}"></div>
+
+    <main class="admin-content">
+        <h3 class="fw-bold mb-4">Bảng điều khiển quản trị</h3>
+
+        <!-- Thống kê chung -->
+        <div class="row g-4 mb-4">
+            <!-- Tổng ứng viên -->
+            <div class="col-md-3">
+                <div class="card card-custom p-3 border-start border-primary border-4 shadow-sm text-decoration-none">
+                    <h6 class="text-muted text-uppercase fw-bold mb-2">Tổng ứng viên</h6>
+                    <h3 class="fw-bold mb-0" th:text="${totalCandidates}">0</h3>
+                </div>
+            </div>
+            <!-- Nhà tuyển dụng -->
+            <div class="col-md-3">
+                <div class="card card-custom p-3 border-start border-success border-4 shadow-sm text-decoration-none">
+                    <h6 class="text-muted text-uppercase fw-bold mb-2">Nhà tuyển dụng</h6>
+                    <h3 class="fw-bold mb-0" th:text="${totalRecruiters}">0</h3>
+                </div>
+            </div>
+            <!-- Doanh nghiệp -->
+            <div class="col-md-3">
+                <div class="card card-custom p-3 border-start border-warning border-4 shadow-sm text-decoration-none">
+                    <h6 class="text-muted text-uppercase fw-bold mb-2">Doanh nghiệp</h6>
+                    <h3 class="fw-bold mb-0" th:text="${totalCompanies}">0</h3>
+                </div>
+            </div>
+            <!-- Tổng việc làm -->
+            <div class="col-md-3">
+                <div class="card card-custom p-3 border-start border-info border-4 shadow-sm text-decoration-none">
+                    <h6 class="text-muted text-uppercase fw-bold mb-2">Tổng việc làm</h6>
+                    <h3 class="fw-bold mb-0" th:text="${totalJobPosts}">0</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thông báo chào mừng thay thế biểu đồ -->
+        <div class="card card-custom p-4 bg-white border-primary border-start border-4 mb-4">
+            <h4 class="text-primary fw-bold mb-2">Chào mừng trở lại!</h4>
+            <p class="text-muted mb-0">Bạn đang xem bảng tổng quan hệ thống. Tại đây bạn có thể theo dõi thống kê nhanh và các hồ sơ cần xử lý khẩn cấp.</p>
+        </div>
+
+        <!-- Danh sách gần đây -->
+        <div class="row">
+            <!-- Tin chờ duyệt -->
+            <div class="col-lg-6 mb-4">
+                <div class="card card-custom p-4 h-100">
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                        <h5 class="fw-bold mb-0">Tin chờ duyệt mới nhất</h5>
+                        <a th:href="@{/admin/job-approval}" class="btn btn-sm btn-outline-primary-custom">Xem tất cả</a>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <!-- Vòng lặp lấy từ list pending jobs -->
+                        <div th:each="job : ${recentPendingJobs}" class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-bold mb-1" th:text="${job.title}">Tên công việc</h6>
+                                <small class="text-muted" th:text="${job.companyName}">Tên công ty</small>
+                            </div>
+                            <span class="badge bg-warning text-dark" th:text="${job.status == 'PENDING' ? 'Chờ duyệt' : job.status}">Chờ duyệt</span>
+                        </div>
+                        <!-- Hiển thị khi danh sách trống -->
+                        <div th:if="${#lists.isEmpty(recentPendingJobs)}" class="text-center py-3 text-muted">
+                            Không có tin nào chờ duyệt.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doanh nghiệp mới đăng ký -->
+            <div class="col-lg-6 mb-4">
+                <div class="card card-custom p-4 h-100">
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                        <h5 class="fw-bold mb-0">Doanh nghiệp mới đăng ký</h5>
+                        <a th:href="@{/admin/company-management}" class="btn btn-sm btn-outline-primary-custom">Xem tất cả</a>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <!-- Vòng lặp doanh nghiệp mới đăng ký -->
+                        <div th:each="comp : ${recentCompanies}" class="list-group-item px-0 d-flex align-items-center gap-3">
+                            <img th:src="${#strings.isEmpty(comp.logoUrl) ? 'https://ui-avatars.com/api/?name=' + comp.companyName + '&background=random&color=fff&size=40' : comp.logoUrl}"
+                                 class="rounded border" style="width: 40px; height: 40px; object-fit: cover;" alt="Logo">
+                            <div>
+                                <h6 class="fw-bold mb-1" th:text="${comp.companyName}">Tên doanh nghiệp</h6>
+                                <small class="text-muted" th:text="'Đăng ký ngày: ' + ${#temporals.format(comp.createdAt, 'dd-MM-yyyy HH:mm')}">Đăng ký ngày</small>
+                            </div>
+                        </div>
+                        <!-- Hiển thị khi danh sách trống -->
+                        <div th:if="${#lists.isEmpty(recentCompanies)}" class="text-center py-3 text-muted">
+                            Không có doanh nghiệp đăng ký mới.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

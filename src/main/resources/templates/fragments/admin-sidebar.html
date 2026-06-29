@@ -1,0 +1,37 @@
+<nav th:fragment="admin-sidebar(activePage)" class="admin-sidebar" xmlns:th="http://www.thymeleaf.org">
+    <div class="px-4 mb-3">
+        <small class="text-secondary fw-bold text-uppercase">System Admin</small>
+    </div>
+    <ul class="sidebar-menu">
+        <li>
+            <a th:href="@{/admin/dashboard}" th:classappend="${activePage == 'dashboard' ? 'active' : ''}">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/admin/job-approval}" th:classappend="${activePage == 'job-approval' ? 'active' : ''}">
+                <i class="bi bi-check-circle"></i> Duyệt tin tuyển dụng
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/admin/company-management}" th:classappend="${activePage == 'company-management' ? 'active' : ''}">
+                <i class="bi bi-buildings"></i> Quản lý doanh nghiệp
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/admin/industry-management}" th:classappend="${activePage == 'industry-management' ? 'active' : ''}">
+                <i class="bi bi-tags"></i> Quản lý ngành nghề
+            </a>
+        </li>
+    </ul>
+    <div class="px-4 mt-4 mb-3">
+        <small class="text-secondary fw-bold text-uppercase">Tài khoản</small>
+    </div>
+    <ul class="sidebar-menu">
+        <li>
+            <a th:href="@{/public/login}" class="text-danger">
+                <i class="bi bi-box-arrow-right"></i> Đăng xuất
+            </a>
+        </li>
+    </ul>
+</nav>
