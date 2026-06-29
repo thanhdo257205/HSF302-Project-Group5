@@ -1,4 +1,4 @@
-package vn.edu.fpt.hsf302_group5.service.impl;
+package vn.edu.fpt.hsf302_group5.service.impl.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import vn.edu.fpt.hsf302_group5.entity.enums.UserRole;
 import vn.edu.fpt.hsf302_group5.repository.company.CompanyRepository;
 import vn.edu.fpt.hsf302_group5.repository.user.UserRepository;
 import vn.edu.fpt.hsf302_group5.repository.jobpost.JobPostRepository;
-import vn.edu.fpt.hsf302_group5.service.AdminService;
+import vn.edu.fpt.hsf302_group5.service.user.AdminService;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,13 +22,19 @@ import java.util.ArrayList;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository;
 
     @Autowired
-    private JobPostRepository jobPostRepository;
+    private  final JobPostRepository jobPostRepository;
+
+    public AdminServiceImpl(UserRepository userRepository, CompanyRepository companyRepository, JobPostRepository jobPostRepository){
+        this.userRepository = userRepository;
+        this.companyRepository = companyRepository;
+        this.jobPostRepository = jobPostRepository;
+    }
 
     @Override
     public long countCandidates() {

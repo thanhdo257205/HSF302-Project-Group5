@@ -1,18 +1,18 @@
 package vn.edu.fpt.hsf302_group5.controller.admin;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import vn.edu.fpt.hsf302_group5.service.AdminService;
+import vn.edu.fpt.hsf302_group5.service.user.AdminService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
+    public AdminController(AdminService adminService){
+        this.adminService = adminService;
+    }
 
     @GetMapping({"", "/", "/dashboard"})
     public String viewDashboard(Model model) {
