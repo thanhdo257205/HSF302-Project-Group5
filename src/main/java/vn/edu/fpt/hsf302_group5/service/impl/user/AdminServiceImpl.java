@@ -1,6 +1,6 @@
 package vn.edu.fpt.hsf302_group5.service.impl.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fpt.hsf302_group5.dto.admin.CompanyDashboardResponse;
@@ -21,14 +21,9 @@ import java.util.ArrayList;
 @Transactional(readOnly = true)
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
     private final UserRepository userRepository;
-
-    @Autowired
     private final CompanyRepository companyRepository;
-
-    @Autowired
-    private  final JobPostRepository jobPostRepository;
+    private final JobPostRepository jobPostRepository;
 
     public AdminServiceImpl(UserRepository userRepository, CompanyRepository companyRepository, JobPostRepository jobPostRepository){
         this.userRepository = userRepository;
@@ -38,12 +33,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public long countCandidates() {
-        return userRepository.countByRole(UserRole.CANDIDATE);
+        return userRepository.countByRole_RoleName(UserRole.CANDIDATE.name());
     }
 
     @Override
     public long countRecruiters() {
-        return userRepository.countByRole(UserRole.RECRUITER);
+        return userRepository.countByRole_RoleName(UserRole.RECRUITER.name());
     }
 
     @Override
