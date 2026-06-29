@@ -11,11 +11,16 @@ import vn.edu.fpt.hsf302_group5.entity.enums.ApplicationStatus;
 import vn.edu.fpt.hsf302_group5.repository.application.ApplicationRepository;
 import vn.edu.fpt.hsf302_group5.service.application.ApplicationService;
 
+import vn.edu.fpt.hsf302_group5.dto.recruiter.response.ApplicantDetailResponse;
+import vn.edu.fpt.hsf302_group5.mapper.ApplicationMapper;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationRepository applicationRepository;
+    private final ApplicationMapper applicationMapper;
 
     @Override
     public Page<ApplicantResponse> getApplicantsByFilter(Integer jobId, String searchKeyword, String status, int page) {
@@ -42,14 +47,32 @@ public class ApplicationServiceImpl implements ApplicationService {
         // Truy xuất từ Database
         Page<Application> applications = applicationRepository.findApplicants(jobId, searchKeyword, statusEnum, pageable);
 
-        // Ánh xạ sang DTO hiển thị
-        return applications.map(app -> new ApplicantResponse(
-            app.getApplicationId(),
-            app.getCandidateProfile().getUser().getFullName(),
-            app.getCandidateProfile().getUser().getEmail(),
-            app.getCandidateProfile().getUser().getPhone(),
-            app.getAppliedDate(),
-            app.getStatus()
-        ));
+        // Ánh xạ sang DTO hiển thị sử dụng mapper
+        return applications.map(applicationMapper::toApplicantResponse);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ApplicantDetailResponse getApplicantDetail(Integer applicationId) {
+        Application application = applicationRepository.findByIdWithDetails(applicationId)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy hồ sơ ứng tuyển với ID: " + applicationId));
+
+        // Ánh xạ sang DTO hiển thị sử dụng mapper
+        return applicationMapper.toApplicantDetailResponse(application);
+    }
+
+    @Override
+    @Transactional
+    public void updateApplicationStatus(Integer applicationId, String status) {
+        Application application = applicationRepository.findById(applicationId)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy hồ sơ ứng tuyển với ID: " + applicationId));
+
+        try {
+            ApplicationStatus newStatus = ApplicationStatus.valueOf(status.toUpperCase().trim());
+            application.setStatus(newStatus);
+            applicationRepository.save(application);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Trạng thái không hợp lệ: " + status);
+        }
     }
 }

@@ -24,4 +24,14 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
         @Param("status") ApplicationStatus status,
         Pageable pageable
     );
+
+    @Query("""
+        SELECT a FROM Application a
+        JOIN FETCH a.candidateProfile cp
+        JOIN FETCH cp.user u
+        JOIN FETCH a.jobPost j
+        LEFT JOIN FETCH a.cv c
+        WHERE a.applicationId = :applicationId
+    """)
+    java.util.Optional<Application> findByIdWithDetails(@Param("applicationId") Integer applicationId);
 }

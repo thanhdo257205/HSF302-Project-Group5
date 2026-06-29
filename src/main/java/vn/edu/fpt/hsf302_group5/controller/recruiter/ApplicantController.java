@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vn.edu.fpt.hsf302_group5.dto.recruiter.response.ApplicantResponse;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.edu.fpt.hsf302_group5.dto.recruiter.response.ApplicantDetailResponse;
 import vn.edu.fpt.hsf302_group5.entity.JobPost;
 import vn.edu.fpt.hsf302_group5.service.application.ApplicationService;
 import vn.edu.fpt.hsf302_group5.service.jobpost.JobPostService;
@@ -48,5 +51,31 @@ public class ApplicantController {
         model.addAttribute("jobId", jobId);
 
         return "pages/recruiter/applicant-list";
+    }
+
+    @GetMapping("/applicant-detail")
+    public String getApplicantDetail(@RequestParam("id") Integer applicationId, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            ApplicantDetailResponse applicant = applicationService.getApplicantDetail(applicationId);
+            model.addAttribute("applicant", applicant);
+            return "pages/recruiter/applicant-detail";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/recruiter/list-job-posts";
+        }
+    }
+
+    @PostMapping("/applicant/update-status")
+    public String updateApplicationStatus(
+            @RequestParam("applicationId") Integer applicationId,
+            @RequestParam("status") String status,
+            RedirectAttributes redirectAttributes) {
+        try {
+            applicationService.updateApplicationStatus(applicationId, status);
+            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật trạng thái hồ sơ thành công!");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/recruiter/applicant-detail?id=" + applicationId;
     }
 }

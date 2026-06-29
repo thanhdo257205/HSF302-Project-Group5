@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết ứng viên - JobPortal</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <link rel="stylesheet" href="../../assets/css/recruiter.css">
+</head>
+<body>
+
+  <div th:replace="~{fragments/header :: header}"></div>
+
+  <div class="recruiter-layout">
+    <div th:replace="~{fragments/recruiter-sidebar :: recruiter-sidebar}"></div>
+    
+    <main class="recruiter-content">
+      <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/recruiter/list-job-posts}" class="text-decoration-none">Tin tuyển dụng</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/recruiter/applicant-list(jobId=${applicant.jobId})}" class="text-decoration-none">Danh sách ứng viên</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Chi tiết ứng viên</li>
+        </ol>
+      </nav>
+
+      <div class="row">
+        <!-- Thông tin ứng viên (Cột trái) -->
+        <div class="col-lg-7 mb-4">
+          <div class="card card-custom p-4 mb-4">
+            <h5 class="fw-bold border-bottom pb-2 mb-3">Thông tin ứng viên</h5>
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold fs-3 overflow-hidden" style="width: 70px; height: 70px;">
+                <!-- 1. Nếu có avatarUrl -> Hiển thị ảnh của ứng viên -->
+                <img th:if="${applicant.avatarUrl != null and applicant.avatarUrl != ''}" 
+                     th:src="${applicant.avatarUrl}" 
+                     class="rounded-circle w-100 h-100 object-fit-cover" 
+                     alt="Avatar">
+                
+                <!-- 2. Nếu không có avatarUrl -> Hiển thị chữ viết tắt -->
+                <div th:unless="${applicant.avatarUrl != null and applicant.avatarUrl != ''}" 
+                     class="bg-primary text-white rounded-circle w-100 h-100 d-flex align-items-center justify-content-center">
+                  <span th:text="${#strings.length(applicant.fullName) >= 2 ? #strings.substring(applicant.fullName, 0, 2) : 'AV'}">NA</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="fw-bold mb-1" th:text="${applicant.fullName}">Nguyễn Văn A</h4>
+                <p class="text-muted mb-0" th:text="'Ứng tuyển: ' + ${applicant.jobTitle}">Ứng tuyển: Senior Frontend Developer</p>
+              </div>
+            </div>
+            
+            <div class="row text-muted g-3">
+              <div class="col-md-6">
+                <i class="bi bi-envelope me-2"></i>
+                <span th:text="${applicant.email}">nguyenvana@gmail.com</span>
+              </div>
+              <div class="col-md-6">
+                <i class="bi bi-telephone me-2"></i>
+                <span th:text="${applicant.phone}">0987 654 321</span>
+              </div>
+              <div class="col-md-12">
+                <i class="bi bi-geo-alt me-2"></i>
+                <span th:text="${(applicant.addressDetail != null ? applicant.addressDetail : '') + (applicant.provinceName != null ? ', ' + applicant.provinceName : '')}">Quận 7, TP. Hồ Chí Minh</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card card-custom p-4 mb-4" th:if="${applicant.summary != null and !#strings.isEmpty(applicant.summary)}">
+            <h5 class="fw-bold border-bottom pb-2 mb-3">Giới thiệu bản thân</h5>
+            <p class="text-muted mb-0" th:text="${applicant.summary}">Tóm tắt giới thiệu...</p>
+          </div>
+          
+          <div class="card card-custom p-4 mb-4">
+            <h5 class="fw-bold border-bottom pb-2 mb-3">Kỹ năng</h5>
+            <div th:if="${applicant.skills != null and !#lists.isEmpty(applicant.skills)}">
+              <span th:each="skill : ${applicant.skills}" th:text="${skill}" class="badge badge-soft-primary me-2 mb-2 p-2 px-3 fs-6">ReactJS</span>
+            </div>
+            <div th:if="${applicant.skills == null or #lists.isEmpty(applicant.skills)}" class="text-muted small">
+              Chưa cập nhật kỹ năng.
+            </div>
+          </div>
+          
+          <div class="card card-custom p-4 mb-4">
+            <h5 class="fw-bold border-bottom pb-2 mb-3">Học vấn</h5>
+            <div th:each="edu : ${applicant.educations}" class="d-flex mb-3">
+              <div class="text-primary me-3"><i class="bi bi-mortarboard fs-4"></i></div>
+              <div>
+                <h6 class="fw-bold mb-1" th:text="${(edu.degree != null ? edu.degree + ' ' : '') + (edu.major != null ? edu.major : '')}">Cử nhân Kỹ thuật phần mềm</h6>
+                <p class="text-muted small mb-0">
+                  <span th:text="${edu.schoolName}">Đại học FPT</span>
+                  <span th:if="${edu.startDate != null or edu.endDate != null}">
+                    (<span th:text="${edu.startDate != null ? #temporals.format(edu.startDate, 'yyyy') : ''}">2018</span> - 
+                     <span th:text="${edu.endDate != null ? #temporals.format(edu.endDate, 'yyyy') : 'Hiện tại'}">2022</span>)
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div th:if="${applicant.educations == null or #lists.isEmpty(applicant.educations)}" class="text-muted small">
+              Chưa có thông tin học vấn.
+            </div>
+          </div>
+          
+          <div class="card card-custom p-4">
+            <h5 class="fw-bold border-bottom pb-2 mb-3">Kinh nghiệm làm việc</h5>
+            <div th:each="exp : ${applicant.experiences}" class="d-flex mb-3">
+              <div class="text-primary me-3"><i class="bi bi-briefcase fs-4"></i></div>
+              <div>
+                <h6 class="fw-bold mb-1" th:text="${exp.position}">Frontend Developer</h6>
+                <p class="text-muted small mb-1">
+                  <span th:text="${exp.companyName}">FPT Software</span>
+                  <span th:if="${exp.startDate != null or exp.endDate != null}">
+                    (<span th:text="${exp.startDate != null ? #temporals.format(exp.startDate, 'MM/yyyy') : ''}">06/2022</span> - 
+                     <span th:text="${exp.endDate != null ? #temporals.format(exp.endDate, 'MM/yyyy') : 'Hiện tại'}">Hiện tại</span>)
+                  </span>
+                </p>
+                <p class="text-muted small mb-0" th:text="${exp.description}">Mô tả dự án, công việc...</p>
+              </div>
+            </div>
+            <div th:if="${applicant.experiences == null or #lists.isEmpty(applicant.experiences)}" class="text-muted small">
+              Chưa có thông tin kinh nghiệm làm việc.
+            </div>
+          </div>
+        </div>
+
+        <!-- Cột Phải: Trạng thái & CV file -->
+        <div class="col-lg-5 mb-4">
+          <!-- Alert thông báo -->
+          <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+            <span th:text="${successMessage}">Thành công!</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            <span th:text="${errorMessage}">Đã xảy ra lỗi!</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          <!-- Card xử lý trạng thái -->
+          <div class="card card-custom p-4 mb-4 border-primary shadow-sm" style="border: 2px solid;">
+            <h5 class="fw-bold text-center mb-3 text-primary">Cập nhật trạng thái</h5>
+            <div class="d-flex flex-column gap-2">
+              <form th:action="@{/recruiter/applicant/update-status}" method="post" class="d-grid">
+                <input type="hidden" name="applicationId" th:value="${applicant.applicationId}" />
+                <input type="hidden" name="status" value="UNDER_REVIEW" />
+                <button type="submit" class="btn btn-outline-warning fw-bold text-dark mb-2" th:disabled="${applicant.status.name() == 'UNDER_REVIEW'}">
+                  <i class="bi bi-eye me-2"></i>Xem xét hồ sơ
+                </button>
+              </form>
+              
+              <form th:action="@{/recruiter/applicant/update-status}" method="post" class="d-grid">
+                <input type="hidden" name="applicationId" th:value="${applicant.applicationId}" />
+                <input type="hidden" name="status" value="SHORTLISTED" />
+                <button type="submit" class="btn btn-outline-success fw-bold mb-2" th:disabled="${applicant.status.name() == 'SHORTLISTED'}">
+                  <i class="bi bi-star me-2"></i>Shortlist
+                </button>
+              </form>
+              
+              <form th:action="@{/recruiter/applicant/update-status}" method="post" class="d-grid">
+                <input type="hidden" name="applicationId" th:value="${applicant.applicationId}" />
+                <input type="hidden" name="status" value="INTERVIEWED" />
+                <button type="submit" class="btn btn-primary-custom fw-bold mb-2" th:disabled="${applicant.status.name() == 'INTERVIEWED'}">
+                  <i class="bi bi-camera-video me-2"></i>Mời phỏng vấn
+                </button>
+              </form>
+              
+              <form th:action="@{/recruiter/applicant/update-status}" method="post" class="d-grid">
+                <input type="hidden" name="applicationId" th:value="${applicant.applicationId}" />
+                <input type="hidden" name="status" value="ACCEPTED" />
+                <button type="submit" class="btn btn-success fw-bold mb-2" th:disabled="${applicant.status.name() == 'ACCEPTED'}">
+                  <i class="bi bi-check-circle me-2"></i>Nhận ứng viên
+                </button>
+              </form>
+
+              <form th:action="@{/recruiter/applicant/update-status}" method="post" class="d-grid">
+                <input type="hidden" name="applicationId" th:value="${applicant.applicationId}" />
+                <input type="hidden" name="status" value="REJECTED" />
+                <button type="submit" class="btn btn-outline-danger fw-bold" th:disabled="${applicant.status.name() == 'REJECTED'}">
+                  <i class="bi bi-x-circle me-2"></i>Từ chối
+                </button>
+              </form>
+            </div>
+            
+            <div class="mt-4 pt-3 border-top text-center">
+              <span class="badge bg-secondary p-2 fs-6">
+                Trạng thái hiện tại: 
+                <span th:if="${applicant.status.name() == 'APPLIED'}">Mới ứng tuyển</span>
+                <span th:if="${applicant.status.name() == 'UNDER_REVIEW'}">Đang xem xét</span>
+                <span th:if="${applicant.status.name() == 'SHORTLISTED'}">Shortlisted</span>
+                <span th:if="${applicant.status.name() == 'INTERVIEWED'}">Mời phỏng vấn</span>
+                <span th:if="${applicant.status.name() == 'ACCEPTED'}">Đã nhận</span>
+                <span th:if="${applicant.status.name() == 'REJECTED'}">Từ chối</span>
+              </span>
+            </div>
+          </div>
+          
+          <!-- Preview CV -->
+          <div class="card card-custom p-4 sticky-top" style="top: 90px;">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+              <h5 class="fw-bold mb-0">Hồ sơ đính kèm</h5>
+              <a th:if="${applicant.cvUrl != null}" th:href="${applicant.cvUrl}" class="btn btn-sm btn-outline-primary-custom" target="_blank" download>
+                <i class="bi bi-download me-1"></i> Tải CV
+              </a>
+            </div>
+            <div class="bg-light border rounded d-flex align-items-center justify-content-center p-4 mb-3" style="min-height: 300px;">
+              <div th:if="${applicant.cvUrl != null}" class="text-center w-100">
+                <i class="bi bi-file-earmark-pdf text-danger display-1 mb-2"></i>
+                <h6 class="fw-bold text-truncate px-2" th:text="${applicant.cvName}">CV_NguyenVanA.pdf</h6>
+                <a th:href="${applicant.cvUrl}" target="_blank" class="btn btn-sm btn-link text-decoration-none">
+                  <i class="bi bi-eye me-1"></i>Xem trực tiếp PDF
+                </a>
+              </div>
+              <div th:if="${applicant.cvUrl == null}" class="text-center text-muted">
+                <i class="bi bi-file-earmark-x display-1 mb-2"></i>
+                <p class="mb-0">Ứng viên chưa đính kèm CV</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+</html>
