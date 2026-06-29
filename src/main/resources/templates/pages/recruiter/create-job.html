@@ -68,13 +68,76 @@
                             <span class="text-danger" th:if="${#fields.hasErrors('vacancies')}" th:errors="*{vacancies}"></span>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Địa điểm làm việc <span class="text-danger">*</span></label>
+                        <!-- Yêu cầu Kỹ năng -->
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Yêu cầu Kỹ năng</label>
+                            <div class="d-flex flex-wrap gap-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="Java" id="skill-java">
+                                    <label class="form-check-label" for="skill-java">Java</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="Python" id="skill-python">
+                                    <label class="form-check-label" for="skill-python">Python</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="Spring Boot" id="skill-springboot">
+                                    <label class="form-check-label" for="skill-springboot">Spring Boot</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="SQL Server" id="skill-sqlserver">
+                                    <label class="form-check-label" for="skill-sqlserver">SQL Server</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="ReactJS" id="skill-reactjs">
+                                    <label class="form-check-label" for="skill-reactjs">ReactJS</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="Power BI" id="skill-powerbi">
+                                    <label class="form-check-label" for="skill-powerbi">Power BI</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="NodeJS" id="skill-nodejs">
+                                    <label class="form-check-label" for="skill-nodejs">NodeJS</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="Angular" id="skill-angular">
+                                    <label class="form-check-label" for="skill-angular">Angular</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="Docker" id="skill-docker">
+                                    <label class="form-check-label" for="skill-docker">Docker</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="skills" value="AWS" id="skill-aws">
+                                    <label class="form-check-label" for="skill-aws">AWS</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Tỉnh/Thành phố <span class="text-danger">*</span></label>
                             <select class="form-select" th:field="*{provinceId}">
-                                <option value="" disabled selected>Chọn địa điểm</option>
+                                <option value="" disabled selected>Chọn tỉnh/thành</option>
                                 <option th:each="province : ${listProvince}" th:value="${province.provinceId}" th:text="${province.provinceName}"></option>
                             </select>
                             <span class="text-danger" th:if="${#fields.hasErrors('provinceId')}" th:errors="*{provinceId}"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Quận/Huyện</label>
+                            <select class="form-select" name="district">
+                                <option value="" disabled selected>Chọn quận/huyện</option>
+                                <option value="quan1">Quận 1</option>
+                                <option value="quan2">Quận 2</option>
+                                <option value="quan3">Quận 3</option>
+                                <option value="hoangkiem">Hoàn Kiếm</option>
+                                <option value="dongda">Đống Đa</option>
+                                <option value="caugiay">Cầu Giấy</option>
+                                <option value="hadong">Hà Đông</option>
+                                <option value="thuduc">Thủ Đức</option>
+                                <option value="binhthanh">Bình Thạnh</option>
+                                <option value="govap">Gò Vấp</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Chi tiết địa điểm <span class="text-danger">*</span></label>

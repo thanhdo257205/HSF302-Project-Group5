@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.edu.fpt.hsf302_group5.dto.industry.IndustryResponse;
 import vn.edu.fpt.hsf302_group5.dto.province.ProvinceResponse;
 import vn.edu.fpt.hsf302_group5.dto.recruiter.request.JobPostFormRequest;
-import vn.edu.fpt.hsf302_group5.entity.Province;
 import vn.edu.fpt.hsf302_group5.entity.enums.EmploymentType;
 import vn.edu.fpt.hsf302_group5.entity.enums.JobLevel;
 import vn.edu.fpt.hsf302_group5.service.industry.IndustryService;
