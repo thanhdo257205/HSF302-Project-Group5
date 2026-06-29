@@ -39,7 +39,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) // Vô hiệu hóa CSRF tạm thời để phát triển/kiểm thử
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/home/**", "/login", "/register", "/register-success", "/resend-verification", "/privacy-policy", "/register-recruiter", "/verify", "/css/**", "/js/**", "/images/**", "/assets/**").permitAll() // Cho phép truy cập tài nguyên tĩnh
+                        .requestMatchers("/", "/home/**", "/login", "/register", "/register-success", "/resend-verification", "/privacy-policy", "/register-recruiter", "/verify", "/css/**", "/js/**", "/images/**", "/assets/**", "/api/load-administrator/**").permitAll() // Cho phép truy cập tài nguyên tĩnh
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

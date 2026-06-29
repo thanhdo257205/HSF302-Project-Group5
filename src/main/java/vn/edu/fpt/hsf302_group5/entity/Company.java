@@ -62,9 +62,8 @@ public class Company {
     private LocalDateTime updatedAt;
 
     // Relationships
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private Set<Recruiter> recruiters = new HashSet<>();
+    @OneToOne(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Recruiter recruiter;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

@@ -43,4 +43,8 @@ public class RecruiterRegisterRequestDTO {
 
     @NotBlank(message = "Địa chỉ cụ thể không được để trống!")
     private String addressSpecific;
+
+    private String website;
+    private String logoUrl;
+
 }

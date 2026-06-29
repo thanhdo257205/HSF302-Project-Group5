@@ -41,6 +41,10 @@
         </div>
 
         <form th:action="@{/register-recruiter}" method="post" th:object="${recruiterRegisterRequestDTO}">
+            <div th:if="${errors}" class="alert alert-danger mb-3" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <span th:text="${errors}"></span>
+            </div>
             <!-- Tài khoản Section -->
             <div class="mb-4">
                 <h4 class="fw-bold fs-5 mb-2" style="color: #212f3f;">Tài khoản</h4>
@@ -87,6 +91,7 @@
                         <i class="bi bi-envelope prefix-icon"></i>
                         <input type="email" th:field="*{email}" class="form-control" placeholder="Email" required>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                     <div class="text-danger small" style="font-size: 0.825rem; line-height: 1.4;">
                         Trường hợp bạn đăng ký tài khoản bằng email không phải email tên miền công ty, một số dịch vụ trên tài khoản có thể bị giới hạn mua hoặc sử dụng.
                     </div>
@@ -96,18 +101,20 @@
                     <label class="topcv-label">Mật khẩu <span class="text-danger">*</span></label>
                     <div class="topcv-input-group">
                         <i class="bi bi-lock prefix-icon"></i>
-                        <input type="password" th:field="*{password}" id="passwordNTD" class="form-control" placeholder="Mật khẩu" required>
+                        <input type="password" th:field="*{password}" th:value="*{password}" id="passwordNTD" class="form-control" placeholder="Mật khẩu" required>
                         <i class="bi bi-eye-slash toggle-password" onclick="togglePasswordVisibility('passwordNTD', this)"></i>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label class="topcv-label">Nhập lại mật khẩu <span class="text-danger">*</span></label>
                     <div class="topcv-input-group">
                         <i class="bi bi-lock prefix-icon"></i>
-                        <input type="password" th:field="*{confirmPassword}" id="confirmPasswordNTD" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                        <input type="password" th:field="*{confirmPassword}" th:value="*{confirmPassword}" id="confirmPasswordNTD" class="form-control" placeholder="Nhập lại mật khẩu" required>
                         <i class="bi bi-eye-slash toggle-password" onclick="togglePasswordVisibility('confirmPasswordNTD', this)"></i>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
                 </div>
             </div>
 
@@ -123,6 +130,7 @@
                         <i class="bi bi-person prefix-icon"></i>
                         <input type="text" th:field="*{fullName}" class="form-control" placeholder="Họ và tên" required>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -134,6 +142,7 @@
                             <option th:each="gender : ${genders}" th:value="${gender.name()}" th:text="${gender.getValue()}"></option>
                         </select>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -142,6 +151,7 @@
                         <i class="bi bi-telephone prefix-icon"></i>
                         <input type="tel" th:field="*{phoneNumber}" class="form-control" placeholder="Số điện thoại cá nhân" required>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -150,7 +160,28 @@
                         <i class="bi bi-building prefix-icon"></i>
                         <input type="text" th:field="*{companyName}" class="form-control" placeholder="Tên công ty" required>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('companyName')}" th:errors="*{companyName}"></span>
                 </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="topcv-label">Website công ty</label>
+                    <div class="topcv-input-group">
+                        <i class="bi bi-globe prefix-icon"></i>
+                        <input type="url" th:field="*{website}" class="form-control" placeholder="https://example.com">
+                    </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('website')}" th:errors="*{website}"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="topcv-label">Logo URL</label>
+                    <div class="topcv-input-group">
+                        <i class="bi bi-image prefix-icon"></i>
+                        <input type="url" th:field="*{logoUrl}" class="form-control" placeholder="https://example.com/logo.png">
+                    </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('logoUrl')}" th:errors="*{logoUrl}"></span>
+                </div>
+
+
 
                 <div class="col-md-6 mb-3">
                     <label class="topcv-label">Địa điểm làm việc <span class="text-danger">*</span></label>
@@ -161,6 +192,7 @@
                             <option th:each="provinceResponse : ${provinceResponses}" th:value="${provinceResponse.provinceId}" th:text="${provinceResponse.provinceName}">Hà Nội</option>
                         </select>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('provinceId')}" th:errors="*{provinceId}"></span>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -171,6 +203,7 @@
                             <option value="" selected disabled>Chọn phường/xã</option>
                         </select>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('administratorUnitId')}" th:errors="*{administratorUnitId}"></span>
                 </div>
 
                 <div class="col-md-12 mb-3">
@@ -179,6 +212,7 @@
                         <i class="bi bi-house-door prefix-icon"></i>
                         <input type="text" th:field="*{addressSpecific}" class="form-control" placeholder="Số nhà, tên đường, v.v." required>
                     </div>
+                    <span class="text-danger small" th:if="${#fields.hasErrors('addressSpecific')}" th:errors="*{addressSpecific}"></span>
                 </div>
             </div>
 

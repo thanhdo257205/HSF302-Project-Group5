@@ -13,6 +13,7 @@ import vn.edu.fpt.hsf302_group5.dto.user.RecruiterRegisterRequestDTO;
 import vn.edu.fpt.hsf302_group5.dto.user.UserRequertDTO;
 import vn.edu.fpt.hsf302_group5.entity.VerificationToken;
 import vn.edu.fpt.hsf302_group5.entity.enums.Gender;
+import vn.edu.fpt.hsf302_group5.service.administrativeunit.AdministrativeUnitService;
 import vn.edu.fpt.hsf302_group5.service.province.ProvinceService;
 import vn.edu.fpt.hsf302_group5.service.user.UserService;
 import vn.edu.fpt.hsf302_group5.service.verificationtoken.VerificationTokenService;
@@ -26,7 +27,7 @@ public class RegisterController {
     private final UserService userService;
     private final VerificationTokenService verificationTokenService;
     private final ProvinceService provinceService;
-    private final vn.edu.fpt.hsf302_group5.service.administrativeunit.AdministrativeUnitService administrativeUnitService;
+    private final AdministrativeUnitService administrativeUnitService;
 
     @GetMapping("/register")
     public String registerPage(Model model) {
@@ -100,14 +101,28 @@ public class RegisterController {
         return "pages/public/register-recruiter";
     }
 
-    @PostMapping("/register-recruiter")
-    public String doRegisterRecruiter() {
-        return "redirect:/register-recruiter-success";
-    }
-
     @GetMapping("/api/load-administrator/{id}")
     @ResponseBody
     public List<AdministrativeUnitResponse> loadAdministrator(@PathVariable("id") Integer id) {
         return administrativeUnitService.getByProvinceId(id);
+    }
+
+    @PostMapping("/register-recruiter")
+    public String doRegisterRecruiter(@Valid @ModelAttribute("recruiterRegisterRequestDTO") RecruiterRegisterRequestDTO recruiterRegisterRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("genders", Gender.values());
+            model.addAttribute("provinceResponses", provinceService.getListProvinceResponse());
+            return "pages/public/register-recruiter";
+        }
+        try {
+            userService.saveRecruiter(recruiterRegisterRequestDTO);
+        } catch (Exception e) {
+            model.addAttribute("genders", Gender.values());
+            model.addAttribute("provinceResponses", provinceService.getListProvinceResponse());
+            model.addAttribute("errors", e.getMessage());
+            return "pages/public/register-recruiter";
+        }
+        redirectAttributes.addAttribute("email", recruiterRegisterRequestDTO.getEmail());
+        return "redirect:/register-success";
     }
 }

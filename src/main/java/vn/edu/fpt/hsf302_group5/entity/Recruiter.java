@@ -24,12 +24,12 @@ public class Recruiter {
     @Column(name = "company_id", nullable = false)
     private Integer companyId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", insertable = false, updatable = false)
     private Company company;
 
     // Relationships
-    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL, fetch =  FetchType.LAZY)
     @Builder.Default
     private Set<JobPost> jobPosts = new HashSet<>();
 }

@@ -137,7 +137,7 @@ CREATE TABLE companies
 CREATE TABLE recruiters
 (
     recruiter_id INT PRIMARY KEY,
-    company_id   INT NOT NULL,
+    company_id   INT NOT NULL UNIQUE,
 
     CONSTRAINT fk_recruiter_user FOREIGN KEY (recruiter_id)
         REFERENCES users (user_id),
