@@ -3742,3 +3742,65 @@ VALUES
  'FULL_TIME','APPROVED',
  DATEADD(DAY,30,GETDATE()),
  1,GETDATE());
+
+-- =========================
+-- JOB SKILLS MATCHING
+-- =========================
+INSERT INTO job_skills (job_id, skill_id)
+VALUES
+    -- Job 1: Java Backend Developer (Requirement: Java, Spring Boot, SQL)
+    (1, 1), -- Java
+    (1, 2), -- Spring Boot
+    (1, 3), -- SQL Server (SQL)
+
+    -- Job 3: AI Engineer [Trạng thái PENDING vẫn map kỹ năng bình thường] (Requirement: Python, AI, Deep Learning)
+    (3, 5), -- Python
+
+    -- Job 4: Java Intern (Requirement: Java Core, OOP, SQL cơ bản)
+    (4, 1), -- Java
+    (4, 3), -- SQL Server (SQL)
+
+    -- Job 5: Spring Boot Developer (Requirement: Java 17, Spring Boot, JPA)
+    (5, 1), -- Java
+    (5, 2), -- Spring Boot
+
+    -- Job 6: Frontend Developer ReactJS (Requirement: ReactJS, HTML, CSS, JavaScript)
+    (6, 4), -- ReactJS
+
+    -- Job 7: Fullstack Developer (Requirement: Java, ReactJS, SQL Server)
+    (7, 1), -- Java
+    (7, 4), -- ReactJS
+    (7, 3), -- SQL Server
+
+    -- Job 10: Data Analyst (Requirement: SQL, Excel, Power BI)
+    (10, 3), -- SQL Server (SQL)
+    (10, 6), -- Power BI
+
+    -- Job 11: Business Intelligence Analyst (Requirement: Power BI, SQL, DAX)
+    (11, 3), -- SQL Server (SQL)
+    (11, 6), -- Power BI
+
+    -- Job 12: Data Engineer (Requirement: Python, Spark, ETL)
+    (12, 5), -- Python
+
+    -- Job 13: Machine Learning Engineer (Requirement: Python, TensorFlow, ML)
+    (13, 5), -- Python
+
+    -- Job 14: AI Research Engineer (Requirement: Python, NLP, Deep Learning)
+    (14, 5), -- Python
+
+    -- Job 16: Automation Tester (Requirement: Java, Selenium, TestNG)
+    (16, 1), -- Java
+
+    -- Job 24: SQL Developer (Requirement: SQL Server, Stored Procedure)
+    (24, 3), -- SQL Server
+
+    -- Job 25: BI Developer (Requirement: SQL, Power BI)
+    (25, 3), -- SQL Server (SQL)
+    (25, 6), -- Power BI
+
+    -- Job 31: Python Developer (Requirement: Python, FastAPI)
+    (31, 5), -- Python
+
+    -- Job 33: Backend Developer .NET (Requirement: C#, ASP.NET Core, SQL Server)
+    (33, 3); -- SQL Server

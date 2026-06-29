@@ -314,6 +314,21 @@ CREATE TABLE job_posts
         REFERENCES administrative_units (unit_id)
 );
 
+CREATE TABLE job_skills
+(
+    job_id   INT NOT NULL,
+    skill_id INT NOT NULL,
+
+    PRIMARY KEY(job_id, skill_id),
+
+    FOREIGN KEY(job_id)
+        REFERENCES job_posts(job_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY(skill_id)
+        REFERENCES skills(skill_id)
+);
+
 -- =========================
 -- SAVED JOBS
 -- =========================

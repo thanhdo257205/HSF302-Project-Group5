@@ -6,10 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import vn.edu.fpt.hsf302_group5.dto.recruiter.response.SkillResponse;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -30,6 +32,9 @@ public class JobPostFormRequest {
     @Min(value=0, message = "Vui lòng nhập số lượng tuyển dụng > 0!")
     private Integer vacancies;
 
+    @NotNull(message = "Vui lòng chọn ít nhất 1 kĩ năng!")
+    private List<Integer> skillsId;
+
     @NotBlank(message = "Vui lòng nhập mô tả công việc!")
     private String description;
 
@@ -42,11 +47,12 @@ public class JobPostFormRequest {
     @NotNull(message = "Vui lòng chọn địa điểm công ty!")
     private Integer provinceId;
 
-    @NotNull(message = "Vui lòng nhập mức lương nhỏ nhất!")
+    @NotNull(message = "Vui lòng chọn quận/huyện!")
+    private Integer administrativeUnitId;
+
     @Min(value=0, message = "Vui lòng nhập mức lương > 0!")
     private BigDecimal salaryMin;
 
-    @NotNull(message = "Vui lòng nhập mức lương lớn nhất!")
     @Min(value=0, message = "Vui lòng nhập mức lương > 0!")
     private BigDecimal salaryMax;
 
