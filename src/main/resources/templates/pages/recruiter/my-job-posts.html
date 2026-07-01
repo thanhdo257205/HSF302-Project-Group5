@@ -98,9 +98,9 @@
                     <tbody>
                     <tr th:if="${jobPostDashboardList.isEmpty()}"><td class="text-center" colspan="5" th:text="'Danh sách tin tuyển dụng trống!'"></td></tr>
                     <tr th:each="job : ${jobPostDashboardList.content}">
-                        <td><a href="#" class="fw-bold text-decoration-none text-primary" th:text="${job.title}"></a></td>
+                        <td><a th:href="@{/recruiter/applicant-list(jobId=${job.jobId})}" class="fw-bold text-decoration-none text-primary" th:text="${job.title}"></a></td>
                         <td class="text-muted" th:text="${#temporals.format(job.postedDate,'dd-MM-yyyy')}"></td>
-                        <td class="text-center fw-bold text-success"><a href="applicant-list.html" class="text-decoration-none text-success" th:text="${job.vacancies}"></a></td>
+                        <td class="text-center fw-bold text-success"><a th:href="@{/recruiter/applicant-list(jobId=${job.jobId})}" class="text-decoration-none text-success" th:text="${job.vacancies}"></a></td>
                         <td><span class="badge badge-soft-success" th:if="${job.status.name == 'APPROVED'}">Đang tuyển</span>
                             <span class="badge badge-soft-warning" th:if="${job.status.name == 'PENDING'}">Chờ duyệt</span>
                             <span class="badge badge-soft-danger" th:if="${job.status.name == 'REJECTED'}">Bị từ chối</span>

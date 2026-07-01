@@ -109,7 +109,8 @@ public interface JobPostRepository extends JpaRepository<JobPost,Integer> {
     long countByStatus(JobStatus status);
 
     @Query("""
-        SELECT new vn.edu.fpt.hsf302_group5.dto.recruiter.response.JobPostDashboardResponse(j.title,
+        SELECT new vn.edu.fpt.hsf302_group5.dto.recruiter.response.JobPostDashboardResponse(j.jobId,
+         j.title,
          j.postedDate,
          j.vacancies,
          j.status

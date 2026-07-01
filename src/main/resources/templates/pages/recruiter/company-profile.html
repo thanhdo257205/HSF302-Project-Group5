@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hồ sơ doanh nghiệp - JobPortal</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <link rel="stylesheet" href="../../assets/css/recruiter.css">
+</head>
+<body>
+
+  <div th:replace="~{fragments/header :: header}"></div>
+
+  <div class="recruiter-layout">
+    <div th:replace="~{fragments/recruiter-sidebar :: recruiter-sidebar}"></div>
+    
+    <main class="recruiter-content">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold mb-0">Hồ sơ doanh nghiệp</h3>
+        <button class="btn btn-primary-custom px-4"><i class="bi bi-floppy me-2"></i>Lưu thông tin</button>
+      </div>
+
+      <div class="row">
+        <!-- Thông tin cơ bản & Logo -->
+        <div class="col-lg-8">
+          <div class="card card-custom p-4 mb-4">
+            <h5 class="fw-bold border-bottom pb-2 mb-4">Thông tin cơ bản</h5>
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label class="form-label fw-bold">Tên công ty</label>
+                <input type="text" class="form-control" placeholder="Nhập tên công ty" value="TechCorp Vietnam JSC">
+              </div>
+              <div class="col-md-12">
+                <label class="form-label fw-bold">Website</label>
+                <input type="url" class="form-control" placeholder="https://" value="https://techcorp.vn">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Email liên hệ</label>
+                <input type="email" class="form-control" placeholder="Email" value="contact@techcorp.vn">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Số điện thoại</label>
+                <input type="tel" class="form-control" placeholder="Số điện thoại" value="028 1234 5678">
+              </div>
+            </div>
+          </div>
+          
+          <div class="card card-custom p-4 mb-4">
+            <h5 class="fw-bold border-bottom pb-2 mb-4">Giới thiệu doanh nghiệp</h5>
+            <textarea class="form-control" rows="6" placeholder="Nhập giới thiệu về công ty của bạn..."></textarea>
+          </div>
+        </div>
+        
+        <div class="col-lg-4">
+          <div class="card card-custom p-4 mb-4">
+            <h5 class="fw-bold border-bottom pb-2 mb-4">Logo công ty</h5>
+            <div class="logo-upload-area mb-3">
+              <i class="bi bi-cloud-arrow-up display-4 text-muted mb-3 d-block"></i>
+              <span class="fw-500">Kéo thả logo vào đây</span>
+              <p class="text-muted small mt-2">Định dạng: JPG, PNG. Max: 2MB.</p>
+            </div>
+            <div class="text-center">
+              <img src="https://ui-avatars.com/api/?name=Upload+Logo&background=e9ecef&color=adb5bd&size=150" class="img-thumbnail rounded" alt="Preview">
+            </div>
+          </div>
+          
+          <div class="card card-custom p-4">
+            <h5 class="fw-bold border-bottom pb-2 mb-4">Thông tin tuyển dụng</h5>
+
+
+            <div class="mb-0">
+              <label class="form-label fw-bold">Địa chỉ</label>
+              <textarea class="form-control" rows="3">Tòa nhà Etown, Quận Tân Bình, TP. HCM</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+</html>
+
