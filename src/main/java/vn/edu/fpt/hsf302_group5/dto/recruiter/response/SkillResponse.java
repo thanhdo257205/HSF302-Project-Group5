@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SkillResponse {
-    private Integer jobSkillId;
-    private String jobSkillName;
+    private Integer skillId;
+    private String skillName;
 }
