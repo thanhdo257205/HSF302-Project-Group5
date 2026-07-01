@@ -36,7 +36,7 @@
 
             <div class="d-flex align-items-center gap-3 mb-4 border-bottom pb-3">
                 <img th:src="${job.recruiter != null && job.recruiter.company != null && !#strings.isEmpty(job.recruiter.company.logoUrl) ? job.recruiter.company.logoUrl : 'https://ui-avatars.com/api/?name=' + (job.recruiter != null && job.recruiter.company != null ? job.recruiter.company.companyName : 'Company') + '&background=random&color=fff&size=60'}"
-                     class="rounded border" style="width: 60px; height: 60px; object-fit: cover;" alt="Logo">
+                     class="rounded border company-logo-img" alt="Logo">
                 <div>
                     <h3 class="fw-bold text-primary mb-1" th:text="${job.title}">Tiêu đề tin tuyển dụng</h3>
                     <p class="text-muted mb-0 fs-5"
@@ -82,17 +82,17 @@
 
             <div class="mb-4">
                 <h5 class="fw-bold text-dark border-bottom pb-2">Mô tả công việc</h5>
-                <div class="text-muted" style="white-space: pre-line;" th:text="${job.description}">Mô tả...</div>
+                <div class="text-muted text-pre-line" th:text="${job.description}">Mô tả...</div>
             </div>
 
             <div class="mb-4">
                 <h5 class="fw-bold text-dark border-bottom pb-2">Yêu cầu ứng viên</h5>
-                <div class="text-muted" style="white-space: pre-line;" th:text="${job.requirement}">Yêu cầu...</div>
+                <div class="text-muted text-pre-line" th:text="${job.requirement}">Yêu cầu...</div>
             </div>
 
             <div class="mb-4">
                 <h5 class="fw-bold text-dark border-bottom pb-2">Quyền lợi được hưởng</h5>
-                <div class="text-muted" style="white-space: pre-line;" th:text="${job.benefit}">Quyền lợi...</div>
+                <div class="text-muted text-pre-line" th:text="${job.benefit}">Quyền lợi...</div>
             </div>
 
             <!-- Nếu tin đã bị từ chối trước đó, hiển thị lý do từ chối -->
@@ -107,12 +107,10 @@
                 <h5 class="fw-bold text-dark mb-3">Xử lý phê duyệt tin</h5>
 
                 <div class="d-flex gap-3">
-                    <form th:action="@{/admin/jobs/{id}/action(id=${job.jobId})}" method="post" class="d-inline">
-                        <input type="hidden" name="status" value="APPROVED"/>
-                        <button type="submit" class="btn btn-success px-4 py-2">
-                            <i class="bi bi-check-lg"></i> Phê duyệt
-                        </button>
-                    </form>
+                    <button type="button" class="btn btn-success px-4 py-2" data-bs-toggle="modal"
+                            data-bs-target="#approveModal">
+                        <i class="bi bi-check-lg"></i> Phê duyệt
+                    </button>
                     <button type="button" class="btn btn-danger px-4 py-2" data-bs-toggle="modal"
                             data-bs-target="#rejectModal">
                         <i class="bi bi-x-lg"></i> Từ chối
@@ -121,6 +119,28 @@
             </div>
         </div>
     </main>
+</div>
+
+<!-- Modal Xác nhận Phê duyệt -->
+<div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form th:action="@{/admin/jobs/{id}/action(id=${job.jobId})}" method="post">
+                <input type="hidden" name="status" value="APPROVED"/>
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-success" id="approveModalLabel">Xác nhận phê duyệt</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn phê duyệt tin tuyển dụng <strong><span th:text="${job.title}">tiêu đề</span></strong> này không?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-success">Xác nhận duyệt</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
