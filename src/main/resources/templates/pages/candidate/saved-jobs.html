@@ -23,44 +23,40 @@
 
         <!-- Chuyển sang dạng Grid (dạng ô) cho đẹp -->
         <div class="row g-4">
-            <!-- Ô Job 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card card-custom p-3 h-100 d-flex flex-column">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <img src="https://ui-avatars.com/api/?name=Creative+Tech&background=random&color=fff&size=60" alt="Company" class="rounded border p-1" style="width: 60px; height: 60px; object-fit: cover;">
-                        <div>
-                            <h6 class="fw-bold mb-1 text-primary">UI/UX Designer</h6>
-                            <p class="text-muted small mb-0">Creative Tech Studio</p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column gap-2 text-muted small mb-4 flex-grow-1">
-                        <span><i class="bi bi-cash text-success me-2"></i> Thỏa thuận</span>
-                        <span><i class="bi bi-geo-alt me-2"></i> Hà Nội</span>
-                    </div>
-                    <div class="d-flex gap-2 mt-auto">
-                        <a href="job-detail.html" class="btn btn-outline-primary-custom flex-grow-1 text-center text-decoration-none">Xem chi tiết</a>
-                        <button class="btn btn-outline-danger px-3"><i class="bi bi-trash"></i></button>
-                    </div>
-                </div>
+            <!-- Trường hợp không có việc làm nào đã lưu -->
+            <div class="col-12 text-center py-5" th:if="${#lists.isEmpty(savedJobs)}">
+                <i class="bi bi-heartbreak text-muted" style="font-size: 3.5rem;"></i>
+                <p class="text-muted mt-3 fs-5">Bạn chưa lưu việc làm nào.</p>
+                <a th:href="@{/candidate/jobs/list-job}" class="btn btn-primary-custom px-4 py-2 mt-2 text-decoration-none">Tìm việc ngay</a>
             </div>
 
-            <!-- Ô Job 2 -->
-            <div class="col-lg-4 col-md-6">
+            <!-- Lặp qua các công việc đã lưu -->
+            <div class="col-lg-4 col-md-6" th:each="saved : ${savedJobs}">
                 <div class="card card-custom p-3 h-100 d-flex flex-column">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <img src="https://ui-avatars.com/api/?name=TechCorp+VN&background=random&color=fff&size=60" alt="Company" class="rounded border p-1" style="width: 60px; height: 60px; object-fit: cover;">
+                        <img th:src="${saved.jobPost.recruiter.company.logoUrl != null ? saved.jobPost.recruiter.company.logoUrl : 'https://ui-avatars.com/api/?name=' + saved.jobPost.recruiter.company.companyName + '&background=random&color=fff&size=60'}" 
+                             alt="Company" class="rounded border p-1" style="width: 60px; height: 60px; object-fit: cover;">
                         <div>
-                            <h6 class="fw-bold mb-1 text-primary">Senior Java Developer</h6>
-                            <p class="text-muted small mb-0">TechCorp Vietnam JSC</p>
+                            <h6 class="fw-bold mb-1 text-primary" th:text="${saved.jobPost.title}">UI/UX Designer</h6>
+                            <p class="text-muted small mb-0" th:text="${saved.jobPost.recruiter.company.companyName}">Creative Tech Studio</p>
                         </div>
                     </div>
                     <div class="d-flex flex-column gap-2 text-muted small mb-4 flex-grow-1">
-                        <span><i class="bi bi-cash text-success me-2"></i> 2000 - 3000 USD</span>
-                        <span><i class="bi bi-geo-alt me-2"></i> Hồ Chí Minh</span>
+                        <span>
+                            <i class="bi bi-cash text-success me-2"></i>
+                            <span th:text="${saved.jobPost.salaryMin != null && saved.jobPost.salaryMax != null ? #numbers.formatDecimal(saved.jobPost.salaryMin, 0, 'COMMA', 0, 'POINT') + ' - ' + #numbers.formatDecimal(saved.jobPost.salaryMax, 0, 'COMMA', 0, 'POINT') + ' VND' : 'Thỏa thuận'}">Thỏa thuận</span>
+                        </span>
+                        <span>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            <span th:text="${saved.jobPost.province.provinceName}">Hà Nội</span>
+                        </span>
                     </div>
                     <div class="d-flex gap-2 mt-auto">
-                        <a href="job-detail.html" class="btn btn-outline-primary-custom flex-grow-1 text-center text-decoration-none">Xem chi tiết</a>
-                        <button class="btn btn-outline-danger px-3"><i class="bi bi-trash"></i></button>
+                        <a th:href="@{/candidate/jobs/job-detail/{id}(id=${saved.jobPost.jobId})}" class="btn btn-outline-primary-custom flex-grow-1 text-center text-decoration-none">Xem chi tiết</a>
+                        <form th:action="@{/candidate/saved-jobs/unsave}" method="post" class="d-inline">
+                            <input type="hidden" name="jobId" th:value="${saved.jobPost.jobId}"/>
+                            <button type="submit" class="btn btn-outline-danger px-3"><i class="bi bi-trash"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -18,11 +18,6 @@ public class controller {
         return "pages/candidate/job-detail";
     }
 
-    @GetMapping("/test2")
-    public String test2(){
-        return "pages/candidate/job-list";
-    }
-
     @GetMapping("/test3")
     public String test3(){
         return "pages/candidate/my-applications";
@@ -33,10 +28,6 @@ public class controller {
         return "pages/candidate/profile";
     }
 
-    @GetMapping("/test5")
-    public String test5(){
-        return "pages/candidate/saved-jobs";
-    }
 
     @GetMapping("/")
     public String test6(){
