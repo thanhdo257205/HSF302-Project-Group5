@@ -49,10 +49,10 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
                 <h5 class="fw-bold mb-0">Danh sách tin gửi duyệt</h5>
                 <form th:action="@{/admin/jobs/list}" method="get" class="d-flex gap-2 align-items-center">
-                    <div style="width: 250px;">
+                    <div class="w-250px">
                         <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm tiêu đề...">
                     </div>
-                    <select class="form-select" name="status" style="width: 180px;" onchange="this.form.submit()">
+                    <select class="form-select w-180px" name="status" onchange="this.form.submit()">
                         <option value="" th:selected="${statusFilter == null}">Tất cả trạng thái</option>
                         <option value="PENDING" th:selected="${statusFilter != null && statusFilter.name() == 'PENDING'}">Chờ duyệt</option>
                         <option value="APPROVED" th:selected="${statusFilter != null && statusFilter.name() == 'APPROVED'}">Đã duyệt</option>
