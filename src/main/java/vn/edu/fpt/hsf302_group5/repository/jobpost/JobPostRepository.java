@@ -90,4 +90,18 @@ public interface JobPostRepository extends JpaRepository<JobPost,Integer> {
     List<JobPost> findTop5ByStatusOrderByPostedDateDesc(
         JobStatus status
     );
+    @Query("""
+     select j from JobPost j 
+     left join fetch j.recruiter r 
+      left join fetch r.company c 
+       where (:status is null or j.status = :status)
+            and (:keyword is null or lower(j.title) like lower(concat('%', :keyword, '%'))
+                 or lower(c.companyName) like lower(concat('%', :keyword, '%')))
+     """)
+    Page<JobPost> findAllForApproval(
+            @Param("status") JobStatus status,
+            @Param("keyword") String keyword,
+            Pageable pageable
+    );
+    long countByStatus(JobStatus status);
 }

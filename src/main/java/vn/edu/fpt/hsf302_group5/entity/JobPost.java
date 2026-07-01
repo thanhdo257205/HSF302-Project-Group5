@@ -122,5 +122,20 @@ public class JobPost {
     @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Application> applications = new HashSet<>();
+
+    public String getSalaryDisplay() {
+        if (salaryMin == null && salaryMax == null) {
+            return "Thỏa thuận";
+        }
+
+        if (salaryMin != null && salaryMax != null) {
+            return salaryMin.divide(BigDecimal.valueOf(1_000_000)).intValue()
+                    + " - "
+                    + salaryMax.divide(BigDecimal.valueOf(1_000_000)).intValue()
+                    + " triệu";
+        }
+
+        return "Thỏa thuận";
+    }
 }
 
