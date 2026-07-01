@@ -137,7 +137,7 @@
     display: flex;
 }
 .auth-sidebar {
-    background: linear-gradient(135deg, #00c257 0%, #009a44 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #0d6efd 100%);
     color: #ffffff;
     padding: 48px;
     width: 45%;
@@ -188,10 +188,10 @@
 }
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label {
-    color: #00b14f;
+    color: #0d6efd;
 }
 .login-btn {
-    background-color: #00b14f;
+    background-color: #0d6efd;
     color: #ffffff;
     border: none;
     padding: 12px;
@@ -201,7 +201,7 @@
     transition: all 0.3s ease;
 }
 .login-btn:hover {
-    background-color: #009a44;
+    background-color: #0b5ed7;
     transform: translateY(-1px);
 }
 @media (max-width: 768px) {
@@ -224,9 +224,9 @@
 
 /* Header buttons styled like TopCV */
 .btn-topcv-register {
-    color: #00b14f !important;
+    color: #0d6efd !important;
     background-color: transparent !important;
-    border: 1.5px solid #00b14f !important;
+    border: 1.5px solid #0d6efd !important;
     border-radius: 24px !important;
     padding: 6px 20px !important;
     font-weight: 600 !important;
@@ -236,13 +236,13 @@
 }
 .btn-topcv-register:hover, .btn-topcv-register.active {
     color: #ffffff !important;
-    background-color: #00b14f !important;
+    background-color: #0d6efd !important;
 }
 
 .btn-topcv-login {
-    color: #00b14f !important;
+    color: #0d6efd !important;
     background-color: transparent !important;
-    border: 1.5px solid #00b14f !important;
+    border: 1.5px solid #0d6efd !important;
     border-radius: 24px !important;
     padding: 6px 20px !important;
     font-weight: 600 !important;
@@ -251,10 +251,10 @@
     transition: all 0.2s ease-in-out;
 }
 .btn-topcv-login:hover, .btn-topcv-login.active {
-    background-color: #00b14f !important;
-    border-color: #00b14f !important;
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
     color: #ffffff !important;
-    box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.25) !important;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25) !important;
 }
 
 .btn-topcv-recruiter {
@@ -298,14 +298,14 @@
 
 /* Regulation card for Recruiter page */
 .recruiter-regulation-card {
-    background-color: #f6fcf8;
-    border: 1px solid #00b14f;
+    background-color: #f0f8ff;
+    border: 1px solid #0d6efd;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 24px;
 }
 .recruiter-regulation-title {
-    color: #00b14f;
+    color: #0d6efd;
     font-weight: bold;
     font-size: 1.15rem;
     display: flex;
@@ -367,7 +367,7 @@
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: #00b14f;
+    color: #0d6efd;
     font-size: 1.05rem;
     z-index: 5;
 }
@@ -383,8 +383,8 @@
 }
 .topcv-input-group .form-control:focus, 
 .topcv-input-group .form-select:focus {
-    border-color: #00b14f;
-    box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1);
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
 }
 
 .topcv-input-group .toggle-password {
@@ -406,7 +406,7 @@
     line-height: 1.4;
 }
 .topcv-checkbox-label a {
-    color: #00b14f;
+    color: #0d6efd;
     font-weight: 600;
     text-decoration: none;
 }
@@ -421,8 +421,8 @@
     margin-bottom: 12px;
 }
 .consent-sub-info.green-info {
-    background-color: #f7faf9;
-    border-left: 3px solid #00b14f;
+    background-color: #f0f8ff;
+    border-left: 3px solid #0d6efd;
     padding: 6px 12px;
     border-radius: 4px;
     color: #555e69;
@@ -433,7 +433,7 @@
 
 /* General button modifications for Submit */
 .btn-topcv-green-submit {
-    background-color: #00b14f;
+    background-color: #0d6efd;
     color: #ffffff !important;
     border: none;
     border-radius: 24px;
@@ -449,7 +449,7 @@
     text-decoration: none;
 }
 .btn-topcv-green-submit:hover {
-    background-color: #009a44;
+    background-color: #0b5ed7;
 }
 .btn-topcv-green-submit:active {
     transform: scale(0.99);
@@ -497,7 +497,7 @@
 }
 
 .text-green-topcv {
-    color: #00b14f !important;
+    color: #0d6efd !important;
 }
 
 .topcv-help-footer {
@@ -523,8 +523,8 @@
 .icon-circle {
     width: 80px;
     height: 80px;
-    background-color: #e6f7ed;
-    color: #00b14f;
+    background-color: #e6f0fa;
+    color: #0d6efd;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
@@ -562,7 +562,7 @@
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-size: 1.3rem;
-    border-left: 4px solid #00b14f;
+    border-left: 4px solid #0d6efd;
     padding-left: 10px;
 }
 .policy-subsection-title {
