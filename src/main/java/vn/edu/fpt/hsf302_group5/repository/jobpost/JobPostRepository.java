@@ -1,6 +1,8 @@
 package vn.edu.fpt.hsf302_group5.repository.jobpost;
 
+import org.springframework.boot.data.autoconfigure.web.DataWebProperties;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -90,4 +92,6 @@ public interface JobPostRepository extends JpaRepository<JobPost,Integer> {
     List<JobPost> findTop5ByStatusOrderByPostedDateDesc(
         JobStatus status
     );
+
+    Page<JobPost> findByStatus(JobStatus status);
 }
