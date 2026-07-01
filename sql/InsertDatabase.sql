@@ -2967,7 +2967,7 @@ INSERT INTO companies
 VALUES
     (
         N'FPT Software',
-        'https://logo.clearbit.com/fpt.com.vn',
+        'https://res.cloudinary.com/dvfet0mdt/image/upload/v1781837539/07800f29-e4bb-4af9-af2a-71b70918a155.png',
         'https://fptsoftware.com',
         N'Công ty phần mềm hàng đầu Việt Nam',
         N'Khu công nghệ cao Hòa Lạc',
@@ -2980,7 +2980,7 @@ VALUES
     ),
     (
         N'Viettel Solutions',
-        'https://logo.clearbit.com/viettel.com.vn',
+        'https://res.cloudinary.com/dvfet0mdt/image/upload/v1781837627/228af167-ac10-4f01-a997-79a7b2463797.png',
         'https://viettel.com.vn',
         N'Công ty công nghệ thuộc tập đoàn Viettel',
         N'Khu đô thị Mễ Trì',

@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div th:replace="~{fragments/header.html :: header}"></div>
+<div th:replace="~{fragments/header.html :: header(activePage='jobs')}"></div>
 
 <div class="candidate-layout">
     <div th:replace="~{fragments/candidate-sidebar.html :: candidate-sidebar}"></div>
@@ -82,13 +82,18 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-column gap-2 text-muted small mb-3 flex-grow-1">
-                                <span th:text="${#numbers.formatDecimal(jobPostResponse.getSalaryMin(), 0, 'COMMA', 0, 'POINT') + ' - ' + #numbers.formatDecimal(
-                                jobPostResponse.getSalaryMax(), 0, 'COMMA', 0, 'POINT') + ' VND'}"><i
-                                        class="bi bi-cash text-success me-2"></i></span>
-                                <span th:text="${jobPostResponse.getCompanyProvinceAddress()}"><i
-                                        class="bi bi-geo-alt me-2"></i></span>
-                                <span th:text="${'Hạn nộp: ' + #temporals.format(jobPostResponse.getExpirationDate(), 'dd/MM/yyyy')}"><i
-                                        class="bi bi-clock text-danger me-2"></i></span>
+                                <span>
+                                    <i class="bi bi-cash text-success me-2"></i>
+                                    <span th:text="${jobPostResponse.getSalaryDisplay()}"></span>
+                                </span>
+                                <span>
+                                    <i class="bi bi-geo-alt me-2"></i>
+                                    <span th:text="${jobPostResponse.getCompanyProvinceAddress()}"></span>
+                                </span>
+                                <span>
+                                    <i class="bi bi-clock text-danger me-2"></i>
+                                    <span th:text="${'Hạn nộp: ' + #temporals.format(jobPostResponse.getExpirationDate(), 'dd/MM/yyyy')}"></span>
+                                </span>
                             </div>
                             <div class="mt-auto">
                                 <a th:href="@{/candidate/jobs/job-detail/{id}(id=${jobPostResponse.getJobId()})}" class="btn btn-outline-primary-custom w-100">Xem chi tiết</a>

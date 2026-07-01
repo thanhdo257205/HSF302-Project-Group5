@@ -28,14 +28,14 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     }
 
     @Override
-    public Optional<VerificationToken> findByToken(String token) {
-        return verificationTokenRepository.findByToken(token);
+    public VerificationToken findByToken(String token) {
+        return verificationTokenRepository.findByToken(token).orElseThrow(() -> new RuntimeException("Token không tồn tại!"));
     }
 
     @Transactional
     @Override
     public String verifyToken(String token) {
-        VerificationToken verificationToken = findByToken(token).orElseThrow(() -> new RuntimeException("TokenNotFound"));
+        VerificationToken verificationToken = findByToken(token);
         if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("TokenExpired");
         }

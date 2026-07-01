@@ -9,7 +9,7 @@
             </a>
         </li>
         <li>
-            <a th:href="@{/admin/job-approval}" th:classappend="${activePage == 'job-approval' ? 'active' : ''}">
+            <a th:href="@{/admin/jobs/list}" th:classappend="${activePage == 'job-approval' ? 'active' : ''}">
                 <i class="bi bi-check-circle"></i> Duyệt tin tuyển dụng
             </a>
         </li>
@@ -29,9 +29,11 @@
     </div>
     <ul class="sidebar-menu">
         <li>
-            <a th:href="@{/public/login}" class="text-danger">
-                <i class="bi bi-box-arrow-right"></i> Đăng xuất
-            </a>
+            <form th:action="@{/logout}" method="post" class="m-0">
+                <button type="submit" class="sidebar-logout-btn border-0 bg-transparent w-100 text-start">
+                    <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                </button>
+            </form>
         </li>
     </ul>
 </nav>

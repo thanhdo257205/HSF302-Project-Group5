@@ -8,7 +8,7 @@ public interface VerificationTokenService {
 
     void save(VerificationToken verificationToken);
 
-    Optional<VerificationToken> findByToken(String token);
+     VerificationToken findByToken(String token);
 
     String verifyToken(String token);
 }

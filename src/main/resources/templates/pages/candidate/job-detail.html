@@ -43,7 +43,7 @@
 
                     <div class="row text-muted mb-4 g-3">
                         <div class="col-md-6">
-                            <i class="bi bi-cash text-success me-2"></i><strong>Mức lương:</strong><span th:text="${(jobPostDetailDTO.salaryMin != null ? jobPostDetailDTO.salaryMin : '') + ' - ' + (jobPostDetailDTO.salaryMax != null ? jobPostDetailDTO.salaryMax : '')}"></span> VND
+                            <i class="bi bi-cash text-success me-2"></i><strong>Mức lương:</strong> <span th:text="${jobPostDetailDTO.salaryDisplay}"></span>
                         </div>
                         <div class="col-md-6">
                             <i class="bi bi-geo-alt text-primary me-2"></i><strong>Địa điểm:</strong><span th:text="${(jobPostDetailDTO.locationDetail != null ? jobPostDetailDTO.locationDetail : '') +(jobPostDetailDTO.administrativeUnitName != null ? ', ' + jobPostDetailDTO.administrativeUnitName : '') + (jobPostDetailDTO.companyProvinceAddress != null ? ', ' + jobPostDetailDTO.companyProvinceAddress : '')}"></span>

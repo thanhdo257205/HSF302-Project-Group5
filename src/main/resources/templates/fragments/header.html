@@ -1,7 +1,9 @@
-<header th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-white sticky-top" xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-white sticky-top" 
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container">
         <!-- Logo dẫn về trang chủ -->
-        <a class="navbar-brand text-primary fw-bold fs-4" href="../public/home.html">
+        <a class="navbar-brand text-primary fw-bold fs-4" href="../public/home.html" th:href="@{/}">
             <i class="bi bi-briefcase-fill me-2"></i>JobPortal
         </a>
 
@@ -14,27 +16,56 @@
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="../public/home.html">Trang chủ</a>
+                    <a class="nav-link" href="../public/home.html" th:href="@{/}" 
+                       th:classappend="${activePage == 'home' ? 'active fw-bold text-primary' : ''}">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../candidate/job-list.html">Việc làm</a>
+                    <a class="nav-link" href="../candidate/job-list.html" th:href="@{/candidate/jobs/list-job}" 
+                       th:classappend="${activePage == 'jobs' ? 'active fw-bold text-primary' : ''}">Việc làm</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/recruiter/list-job-posts}">Nhà tuyển dụng</a>
+                    <a class="nav-link" th:href="@{/recruiter/list-job-posts}" 
+                       th:classappend="${activePage == 'recruiters' ? 'active fw-bold text-primary' : ''}">Nhà tuyển dụng</a>
                 </li>
                 <!-- Link sang trang Admin nổi bật để test -->
-                <li class="nav-item">
-                    <a class="nav-link fw-bold text-danger" href="../admin/dashboard.html">
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link fw-bold text-danger" href="../admin/dashboard.html" th:href="@{/admin/dashboard}">
                         <i class="bi bi-shield-lock me-1"></i>Admin
                     </a>
                 </li>
             </ul>
 
-            <!-- Nút đăng nhập / đăng ký -->
-            <div class="d-flex align-items-center gap-2">
-                <a href="../public/register.html" th:href="@{/register}" class="btn btn-topcv-register" th:classappend="${activePage == 'register' ? 'active' : ''}">Đăng ký</a>
-                <a href="../public/login.html" th:href="@{/login}" class="btn btn-topcv-login" th:classappend="${activePage == 'login' ? 'active' : ''}">Đăng nhập</a>
-                <a href="../public/register-recruiter.html" th:href="@{/register-recruiter}" class="btn btn-topcv-recruiter" th:classappend="${activePage == 'register-recruiter' ? 'active' : ''}">Đăng tuyển & tìm hồ sơ</a>
+            <!-- Nút đăng nhập / đăng ký khi chưa login -->
+            <div sec:authorize="!isAuthenticated()" class="d-flex align-items-center gap-2">
+                <a th:href="@{/register}" class="btn btn-topcv-register" th:classappend="${activePage == 'register' ? 'active' : ''}">Đăng ký</a>
+                <a th:href="@{/login}" class="btn btn-topcv-login" th:classappend="${activePage == 'login' ? 'active' : ''}">Đăng nhập</a>
+                <a th:href="@{/register-recruiter}" class="btn btn-topcv-recruiter" th:classappend="${activePage == 'register-recruiter' ? 'active' : ''}">Đăng tuyển & tìm hồ sơ</a>
+            </div>
+
+            <!-- Thông tin người dùng khi đã login thành công -->
+            <div sec:authorize="isAuthenticated()" class="dropdown">
+                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img th:src="${#authentication.principal.avatarUrl != null && !#authentication.principal.avatarUrl.isEmpty() ? #authentication.principal.avatarUrl : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" 
+                         class="rounded-circle" 
+                         style="width: 35px; height: 35px; object-fit: cover;" 
+                         alt="Avatar">
+                    <span sec:authentication="principal.fullName" class="fw-semibold"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
+                    <li>
+                        <a class="dropdown-item" th:href="@{/profile}">
+                            <i class="bi bi-person me-2"></i>Thông tin cá nhân
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form th:action="@{/logout}" method="post" class="m-0">
+                            <button type="submit" class="dropdown-item text-danger border-0 bg-transparent w-100 text-start">
+                                <i class="bi bi-box-arrow-right me-2"></i>Đăng xuất
+                            </button>
+                        </form>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

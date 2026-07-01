@@ -23,8 +23,8 @@
                 <i class="bi bi-envelope-check-fill"></i>
             </div>
             
-            <h3 class="fw-bold mb-3" style="color: #212f3f;">Đăng ký tài khoản thành công!</h3>
-            
+            <h3 th:unless="${forgotPassword}" class="fw-bold mb-3" style="color: #212f3f;">Đăng ký tài khoản thành công!</h3>
+            <h3 th:if="${forgotPassword}" class="fw-bold mb-3" style="color: #212f3f;">Yêu cầu cấp lại mật khẩu thành công!</h3>
 
             <!-- Alert khi gửi lại email thành công -->
             <div th:if="${resent}" class="alert alert-success d-flex align-items-center gap-2 py-2 px-3 mb-3 mx-auto" role="alert" style="border-radius: 8px; font-size: 0.9rem; max-width: 400px;">
@@ -38,8 +38,11 @@
                 <span th:text="${param.error}">Có lỗi xảy ra khi gửi lại email!</span>
             </div>
             
-            <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+            <p th:unless="${forgotPassword}" class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
                 Chào mừng bạn đến với <strong class="text-green-topcv">JobPortal</strong>. Một email xác thực đã được gửi tới địa chỉ <strong th:text="${email}">email của bạn</strong>. Vui lòng kiểm tra hòm thư (bao gồm cả thư mục Spam/Quảng cáo) và click vào liên kết xác nhận để kích hoạt tài khoản.
+            </p>
+            <p th:if="${forgotPassword}" class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+                Chào mừng bạn đến với <strong class="text-green-topcv">JobPortal</strong>. Một email xác thực đã được gửi tới địa chỉ <strong th:text="${email}">email của bạn</strong>. Vui lòng kiểm tra hòm thư (bao gồm cả thư mục Spam/Quảng cáo) và click vào liên kết xác nhận để cài lại mật khẩu cho tài khoản.
             </p>
 
             <div class="d-grid gap-2 col-md-8 mx-auto mb-3">
@@ -50,7 +53,7 @@
 
             <!-- Link gửi lại email kích hoạt -->
             <p class="small text-muted mb-4" th:if="${email != null}">
-                Không nhận được email? <a th:href="@{/resend-verification(email=${email})}" class="text-green-topcv fw-bold text-decoration-none">Bấm vào đây để gửi lại</a>
+                Không nhận được email? <a th:href="@{/resend-verification(email=${email}, forgotpassword=${forgotPassword})}" class="text-green-topcv fw-bold text-decoration-none">Bấm vào đây để gửi lại</a>
             </p>
 
             <div class="topcv-help-footer border-top pt-3 mt-4 text-muted small">

@@ -1,6 +1,9 @@
 package vn.edu.fpt.hsf302_group5.service.impl.user;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fpt.hsf302_group5.dto.admin.CompanyDashboardResponse;
@@ -13,12 +16,12 @@ import vn.edu.fpt.hsf302_group5.repository.company.CompanyRepository;
 import vn.edu.fpt.hsf302_group5.repository.user.UserRepository;
 import vn.edu.fpt.hsf302_group5.repository.jobpost.JobPostRepository;
 import vn.edu.fpt.hsf302_group5.service.user.AdminService;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.ArrayList;
 
 @Service
-@Transactional(readOnly = true)
 public class AdminServiceImpl implements AdminService {
 
     private final UserRepository userRepository;
@@ -81,5 +84,40 @@ public class AdminServiceImpl implements AdminService {
             ));
         }
         return recentCompanies;
+    }
+
+    @Override
+    public Page<JobPostDashboardResponse> getJobPostForApproval(String keyword, JobStatus status, Pageable pageable) {
+        if(keyword != null && keyword.trim().isEmpty()){
+            keyword = null;
+        }
+        Page<JobPost> entityPage = jobPostRepository.findAllForApproval(status, keyword, pageable);
+        return entityPage.map(job -> new JobPostDashboardResponse(
+                job.getJobId(),
+                job.getTitle(),
+                job.getRecruiter().getCompany().getCompanyName(),
+                job.getStatus(),
+                job.getPostedDate()
+        ));
+    }
+
+    @Override
+    public long countJobPostsByStatus(JobStatus jobStatus) {
+        return jobPostRepository.countByStatus(jobStatus);
+    }
+
+    @Override
+    public JobPost getJobPostById(int id) {
+        return jobPostRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("khong tim thay tin tuyen dung voi ID: "+ id));
+    }
+
+    @Override
+    public void updateJobPostStatus(int id, JobStatus status, String comment) {
+        JobPost jobPost = jobPostRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException(" khong tim thay tin tuyen dung voi ID: "+ id));
+        jobPost.setStatus(status);
+        jobPost.setAdminComment(comment);
+        jobPostRepository.save(jobPost);
     }
 }

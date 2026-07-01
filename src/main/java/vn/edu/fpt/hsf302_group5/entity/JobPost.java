@@ -127,5 +127,20 @@ public class JobPost {
     @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<JobSkill> jobSkills = new HashSet<>();
+
+    public String getSalaryDisplay() {
+        if (salaryMin == null && salaryMax == null) {
+            return "Thỏa thuận";
+        }
+
+        if (salaryMin != null && salaryMax != null) {
+            return salaryMin.divide(BigDecimal.valueOf(1_000_000)).intValue()
+                    + " - "
+                    + salaryMax.divide(BigDecimal.valueOf(1_000_000)).intValue()
+                    + " triệu";
+        }
+
+        return "Thỏa thuận";
+    }
 }
 

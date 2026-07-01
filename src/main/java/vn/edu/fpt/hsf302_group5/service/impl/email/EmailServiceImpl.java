@@ -21,13 +21,13 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @Async("mailExecutor")
-    public void sendVerificationEmail(String toMail, String verificationTokenLink) {
+    public void sendVerificationEmail(String toMail, String verificationTokenLink, String messageTitle) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
         message.setTo(toMail);
         message.setSubject("Xác thực tài khoản");
         message.setText(
-                "Nhấn vào link sau để kích hoạt tài khoản:\n"
+                messageTitle + "\n"
                         + verificationTokenLink
         );
         mailSender.send(message);

@@ -37,7 +37,8 @@
 .admin-sidebar .sidebar-menu li {
     margin-bottom: 5px;
 }
-.admin-sidebar .sidebar-menu a {
+.admin-sidebar .sidebar-menu a,
+.admin-sidebar .sidebar-menu button.sidebar-logout-btn {
     display: flex;
     align-items: center;
     padding: 12px 24px;
@@ -48,10 +49,19 @@
     border-left: 3px solid transparent;
 }
 
+.admin-sidebar .sidebar-menu button.sidebar-logout-btn {
+    color: #dc3545; /* Màu đỏ của nút Đăng xuất */
+}
+
 /* Khi di chuột vào link Sidebar */
 .admin-sidebar .sidebar-menu a:hover {
     background-color: rgba(13, 110, 253, 0.05); /* Nền xanh nhạt */
     color: #0d6efd; /* Chữ xanh dương */
+}
+
+.admin-sidebar .sidebar-menu button.sidebar-logout-btn:hover {
+    background-color: rgba(220, 53, 69, 0.05); /* Nền đỏ nhạt */
+    color: #dc3545; /* Vẫn giữ chữ màu đỏ */
 }
 
 /* Khi trang đó đang mở */

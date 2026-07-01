@@ -61,9 +61,9 @@ public class RegisterController {
     }
 
     @GetMapping("/resend-verification")
-    public String resendVerification(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+    public String resendVerification(@RequestParam("email") String email, @RequestParam("forgotpassword") Boolean forgotpassword ,RedirectAttributes redirectAttributes) {
         try {
-            userService.resendVerificationToken(email);
+            userService.resendVerificationToken(email, forgotpassword);
             redirectAttributes.addAttribute("email", email);
             redirectAttributes.addAttribute("resent", true);
         } catch (Exception e) {

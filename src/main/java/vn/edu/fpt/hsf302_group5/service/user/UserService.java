@@ -8,11 +8,15 @@ public interface UserService {
 
     Boolean registerUser(UserRequest user);
 
-    void resendVerificationToken(String email);
+    void resendVerificationToken(String email, Boolean forgotpassword);
 
     void save(User user);
 
     void saveRecruiter(RecruiterRegisterRequest recruiterRegisterRequest);
 
     boolean existsByEmail(String email);
+
+    void forgotPassword(String email);
+
+    void resetPassword(String token, String password, String confirmPassword);
 }
