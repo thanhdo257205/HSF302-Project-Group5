@@ -4,27 +4,17 @@
     </div>
     <ul class="sidebar-menu">
         <li>
-            <a href="my-job-posts.html">
-                <i class="bi bi-grid"></i> Trang tổng quan
-            </a>
-        </li>
-        <li>
-            <a href="company-profile.html">
-                <i class="bi bi-building"></i> Hồ sơ doanh nghiệp
-            </a>
-        </li>
-        <li>
-            <a href="create-job.html">
-                <i class="bi bi-plus-circle"></i> Đăng tuyển dụng
-            </a>
-        </li>
-        <li>
-            <a href="my-job-posts.html">
+            <a th:href="@{/recruiter/list-job-posts}">
                 <i class="bi bi-card-list"></i> Danh sách tin tuyển dụng
             </a>
         </li>
         <li>
-            <a href="applicant-list.html">
+            <a th:href="@{/recruiter/applicant-list}">
+                <i class="bi bi-building"></i> Hồ sơ doanh nghiệp
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/recruiter/applicant-detail}">
                 <i class="bi bi-people"></i> Ứng viên ứng tuyển
             </a>
         </li>

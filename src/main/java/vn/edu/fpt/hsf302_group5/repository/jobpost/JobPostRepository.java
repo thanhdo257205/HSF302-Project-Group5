@@ -1,14 +1,13 @@
 package vn.edu.fpt.hsf302_group5.repository.jobpost;
 
-import org.springframework.boot.data.autoconfigure.web.DataWebProperties;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import vn.edu.fpt.hsf302_group5.dto.job_post.JobPostDetailResponse;
+import vn.edu.fpt.hsf302_group5.dto.recruiter.response.JobPostDashboardResponse;
 import vn.edu.fpt.hsf302_group5.dto.recruiter.response.StatisticResponse;
 import vn.edu.fpt.hsf302_group5.dto.job_post.JobPostResponse;
 import vn.edu.fpt.hsf302_group5.entity.JobPost;
@@ -108,4 +107,23 @@ public interface JobPostRepository extends JpaRepository<JobPost,Integer> {
             Pageable pageable
     );
     long countByStatus(JobStatus status);
+
+    @Query("""
+        SELECT new vn.edu.fpt.hsf302_group5.dto.recruiter.response.JobPostDashboardResponse(j.title,
+         j.postedDate,
+         j.vacancies,
+         j.status
+         ) 
+        FROM JobPost j 
+        WHERE (:textSearch is null 
+        or lower(j.title) like lower(concat('%', :textSearch, '%')))
+        and (:statusSearch is null
+        or j.status = :statusSearch
+        )     
+""")
+    Page<JobPostDashboardResponse> getJobPostDashboard(
+            @Param("textSearch") String textSearch,
+            @Param("statusSearch") JobStatus statusSearch,
+            Pageable pageable
+    );
 }
