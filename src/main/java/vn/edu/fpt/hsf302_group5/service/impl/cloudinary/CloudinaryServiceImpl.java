@@ -1,7 +1,6 @@
 package vn.edu.fpt.hsf302_group5.service.impl.cloudinary;
 
 import com.cloudinary.Cloudinary;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import vn.edu.fpt.hsf302_group5.service.cloudinary.CloudinaryService;
@@ -15,7 +14,6 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 
     private final Cloudinary cloudinary;
 
-    @Autowired
     public CloudinaryServiceImpl(Cloudinary cloudinary) {
         this.cloudinary = cloudinary;
     }
@@ -31,10 +29,11 @@ public class CloudinaryServiceImpl implements CloudinaryService {
         }
 
         Map<String, Object> options = new HashMap<>();
-        
+
         // Determine resource type: PDF and images should be uploaded as "image"
         String contentType = file.getContentType();
-        if (contentType != null && (contentType.startsWith("image/") || contentType.equalsIgnoreCase("application/pdf"))) {
+        if (contentType != null
+                && (contentType.startsWith("image/") || contentType.equalsIgnoreCase("application/pdf"))) {
             options.put("resource_type", "image");
         } else if (originalFilename != null && originalFilename.toLowerCase().endsWith(".pdf")) {
             options.put("resource_type", "image");
@@ -52,13 +51,12 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 
         Map<?, ?> result = cloudinary.uploader().upload(
                 file.getBytes(),
-                options
-        );
+                options);
 
         if (result.containsKey("secure_url")) {
             return result.get("secure_url").toString();
         }
-        
+
         throw new IOException("Failed to get secure_url from Cloudinary response");
     }
 }
