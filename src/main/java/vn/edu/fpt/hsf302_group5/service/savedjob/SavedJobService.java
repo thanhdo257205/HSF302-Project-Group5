@@ -6,4 +6,6 @@ import java.util.List;
 public interface SavedJobService {
     List<SavedJob> getSavedJobsByCandidateId(Integer candidateId);
     void unsaveJob(Integer candidateId, Integer jobId);
+    void saveJob(Integer candidateId, Integer jobId);
+    boolean isJobSaved(Integer candidateId, Integer jobId);
 }

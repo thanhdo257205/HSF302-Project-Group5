@@ -90,9 +90,22 @@
                     <button class="btn btn-primary-custom btn-lg w-100 mb-3 fw-bold shadow-sm">
                         <i class="bi bi-send-fill me-2"></i> Ứng tuyển ngay
                     </button>
-                    <button class="btn btn-outline-primary-custom btn-lg w-100 mb-4 fw-bold">
-                        <i class="bi bi-heart me-2"></i> Lưu việc làm
-                    </button>
+                    <!-- Nút Lưu việc làm (nếu chưa lưu) -->
+                    <form th:if="${!isSaved}" th:action="@{/candidate/saved-jobs/save}" method="post">
+                        <input type="hidden" name="jobId" th:value="${jobPostDetailDTO.id}"/>
+                        <button type="submit" class="btn btn-outline-primary-custom btn-lg w-100 mb-4 fw-bold">
+                            <i class="bi bi-heart me-2"></i> Lưu việc làm
+                        </button>
+                    </form>
+                    
+                    <!-- Nút Đã lưu việc làm (nếu đã lưu) -->
+                    <form th:if="${isSaved}" th:action="@{/candidate/saved-jobs/unsave}" method="post">
+                        <input type="hidden" name="jobId" th:value="${jobPostDetailDTO.id}"/>
+                        <input type="hidden" name="redirectUrl" th:value="'/candidate/jobs/job-detail/' + ${jobPostDetailDTO.id}"/>
+                        <button type="submit" class="btn btn-primary-custom btn-lg w-100 mb-4 fw-bold">
+                            <i class="bi bi-heart-fill me-2"></i> Đã lưu việc làm
+                        </button>
+                    </form>
 
                     <h6 class="fw-bold mb-3">Thông tin nhanh</h6>
                     <ul class="list-unstyled text-muted small">

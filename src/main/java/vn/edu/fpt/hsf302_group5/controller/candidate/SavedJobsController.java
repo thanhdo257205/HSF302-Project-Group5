@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import vn.edu.fpt.hsf302_group5.entity.SavedJob;
 import vn.edu.fpt.hsf302_group5.entity.User;
 import vn.edu.fpt.hsf302_group5.repository.user.UserRepository;
@@ -36,8 +38,23 @@ public class SavedJobsController {
         return "pages/candidate/saved-jobs";
     }
 
-    @org.springframework.web.bind.annotation.PostMapping("/saved-jobs/unsave")
-    public String unsaveJob(@org.springframework.web.bind.annotation.RequestParam Integer jobId, @AuthenticationPrincipal UserDetails userDetails) {
+    @PostMapping("/saved-jobs/save")
+    public String saveJob(@RequestParam Integer jobId, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
+        
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng!"));
+                
+        savedJobService.saveJob(user.getUserId(), jobId);
+        return "redirect:/candidate/jobs/job-detail/" + jobId;
+    }
+
+    @PostMapping("/saved-jobs/unsave")
+    public String unsaveJob(@RequestParam Integer jobId,
+                            @RequestParam(required = false) String redirectUrl,
+                            @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
             return "redirect:/login";
         }
@@ -46,6 +63,9 @@ public class SavedJobsController {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng!"));
                 
         savedJobService.unsaveJob(user.getUserId(), jobId);
+        if (redirectUrl != null && !redirectUrl.isEmpty()) {
+            return "redirect:" + redirectUrl;
+        }
         return "redirect:/candidate/saved-jobs";
     }
 }
